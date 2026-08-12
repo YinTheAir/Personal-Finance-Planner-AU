@@ -65,6 +65,7 @@
         color: #6b7280;
         font-size: 14px;
         margin-top: 5px;
+        line-height: 1.5;
     }
 
     table {
@@ -78,6 +79,7 @@
         border-bottom: 2px solid #e5e7eb;
         font-size: 13px;
         color: #6b7280;
+        white-space: nowrap;
     }
 
     th:first-child {
@@ -160,10 +162,6 @@
         background: #f9fafb;
     }
 
-    .muted {
-        color: #9ca3af;
-    }
-
     .summary-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -210,6 +208,10 @@
         padding-top: 16px;
     }
 
+    /* -----------------------------
+       INSIGHTS
+    ----------------------------- */
+
     .insight-box {
         margin-top: 24px;
         background: #f9fafb;
@@ -219,7 +221,7 @@
 
     .insight-box h3 {
         margin-top: 0;
-        margin-bottom: 15px;
+        margin-bottom: 18px;
     }
 
     .insight-grid {
@@ -238,12 +240,43 @@
     .insight-card .label {
         font-size: 12px;
         color: #6b7280;
-        margin-bottom: 5px;
+        margin-bottom: 6px;
     }
 
     .insight-card .value {
         font-weight: 700;
         font-size: 16px;
+        line-height: 1.35;
+    }
+
+    .help-calculation {
+        margin-top: 20px;
+        padding: 18px;
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+    }
+
+    .help-calculation h4 {
+        margin: 0 0 12px;
+    }
+
+    .calculation-line {
+        padding: 7px 0;
+        color: #374151;
+        line-height: 1.5;
+    }
+
+    .calculation-line strong {
+        color: #111827;
+    }
+
+    .calculation-result {
+        margin-top: 10px;
+        padding-top: 12px;
+        border-top: 2px solid #e5e7eb;
+        font-weight: 700;
+        font-size: 17px;
     }
 
     .settings-grid {
@@ -263,6 +296,10 @@
         width: 100%;
     }
 
+    /* -----------------------------
+       EXPENSES
+    ----------------------------- */
+
     .expense-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -271,7 +308,7 @@
 
     .expense-row {
         display: grid;
-        grid-template-columns: 1fr 120px 120px 100px;
+        grid-template-columns: 1fr 120px 120px 50px;
         gap: 10px;
         align-items: center;
         padding: 10px 0;
@@ -315,6 +352,10 @@
         margin-top: 5px;
     }
 
+    /* -----------------------------
+       AVAILABLE
+    ----------------------------- */
+
     .available {
         background: #eef6ff;
         border-radius: 10px;
@@ -335,25 +376,20 @@
         font-weight: 600;
     }
 
-    .allocation-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 30px;
-    }
+    /* -----------------------------
+       ALLOCATION
+    ----------------------------- */
 
     .allocation-row {
         display: grid;
-        grid-template-columns: 1fr 120px 100px 80px;
+        grid-template-columns: 1fr 140px 120px 50px;
         gap: 10px;
         align-items: center;
         padding: 10px 0;
         border-bottom: 1px solid #f0f0f0;
     }
 
-    .allocation-row input {
-        width: 100%;
-    }
-
+    .allocation-row input,
     .allocation-row select {
         width: 100%;
     }
@@ -367,12 +403,16 @@
         font-weight: bold;
     }
 
+    .success {
+        color: #15803d;
+    }
+
     .warning {
         color: #b45309;
     }
 
-    .success {
-        color: #15803d;
+    .danger {
+        color: #dc2626;
     }
 
     footer {
@@ -382,18 +422,12 @@
         padding: 30px;
     }
 
-    .empty-message {
-        text-align: center;
-        color: #9ca3af;
-        padding: 25px;
-    }
-
     @media (max-width: 950px) {
+
         .summary-grid,
         .settings-grid,
         .tax-grid,
-        .expense-grid,
-        .allocation-grid {
+        .expense-grid {
             grid-template-columns: 1fr;
         }
 
@@ -402,7 +436,7 @@
         }
 
         table {
-            min-width: 900px;
+            min-width: 1050px;
         }
 
         .section {
@@ -411,6 +445,7 @@
     }
 
     @media (max-width: 600px) {
+
         header {
             padding: 24px 20px;
         }
@@ -430,47 +465,90 @@
 
 <header>
     <h1>Personal Finance Planner AU</h1>
-    <p>Income → Tax & HELP → Expenses → Money available → Discretionary planning</p>
+    <p>
+        Income → Tax & HELP → Living Expenses → Money Available → Discretionary Planning
+    </p>
 </header>
+
 
 <div class="container">
 
-<!-- SETTINGS -->
+
+<!-- =====================================================
+     SETTINGS
+===================================================== -->
+
 <section class="section">
 
     <div class="section-header">
+
         <div>
             <h2>Tax & Personal Settings</h2>
+
             <div class="section-description">
                 These settings control the tax and HELP calculations.
             </div>
         </div>
+
     </div>
+
 
     <div class="settings-grid">
 
         <div class="setting">
+
             <label>Tax year</label>
+
             <select id="taxYear" onchange="calculateAll()">
-                <option value="2026-27" selected>2026–27</option>
-                <option value="2025-26">2025–26</option>
+
+                <option value="2026-27" selected>
+                    2026–27
+                </option>
+
+                <option value="2025-26">
+                    2025–26
+                </option>
+
             </select>
+
         </div>
 
+
         <div class="setting">
+
             <label>HELP / HECS debt</label>
+
             <select id="hasHELP" onchange="calculateAll()">
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
+
+                <option value="yes">
+                    Yes
+                </option>
+
+                <option value="no">
+                    No
+                </option>
+
             </select>
+
         </div>
 
+
         <div class="setting">
+
             <label>Private hospital cover</label>
+
             <select id="privateHospital" onchange="calculateAll()">
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
+
+                <option value="yes">
+                    Yes
+                </option>
+
+                <option value="no">
+                    No
+                </option>
+
             </select>
+
         </div>
 
     </div>
@@ -478,39 +556,65 @@
 </section>
 
 
-<!-- INCOME -->
+<!-- =====================================================
+     INCOME
+===================================================== -->
+
 <section class="section">
 
     <div class="section-header">
 
         <div>
+
             <h2>Income</h2>
+
             <div class="section-description">
-                Add each source separately. Full-time jobs can be entered as annual salary; casual or part-time work can be entered using hourly rate and hours per week.
+                Add each source separately. Full-time jobs can be entered as
+                annual salary; casual or part-time work can be entered using
+                hourly rate and hours per week.
             </div>
+
         </div>
 
-        <button class="add-button" onclick="addIncome()">
+
+        <button
+            class="add-button"
+            onclick="addIncome()"
+        >
             + Add income source
         </button>
 
     </div>
 
+
     <table>
 
         <thead>
+
             <tr>
+
                 <th>Source</th>
+
                 <th>Income type</th>
+
                 <th>Amount</th>
+
                 <th>Hours / week</th>
+
                 <th>Annual</th>
+
                 <th>Monthly</th>
+
                 <th>Weekly</th>
+
                 <th>Hourly</th>
+
                 <th></th>
+
             </tr>
+
         </thead>
+
 
         <tbody id="incomeBody"></tbody>
 
@@ -519,64 +623,123 @@
 </section>
 
 
-<!-- TAX -->
+<!-- =====================================================
+     TAX & GOVERNMENT
+===================================================== -->
+
 <section class="section">
 
     <div class="section-header">
+
         <div>
+
             <h2>Tax & Government Repayments</h2>
+
             <div class="section-description">
-                Estimates are calculated from your combined annual income.
+                Estimated annual amounts based on your current income inputs.
             </div>
+
         </div>
+
     </div>
+
 
     <div class="tax-grid">
 
+
         <div>
 
             <div class="tax-row">
+
                 <span>Total income</span>
-                <strong id="taxTotalIncome">$0.00</strong>
+
+                <strong id="taxTotalIncome">
+                    $0.00
+                </strong>
+
             </div>
 
+
             <div class="tax-row">
+
                 <span>Tax deductions</span>
-                <strong>$0.00</strong>
+
+                <strong>
+                    $0.00
+                </strong>
+
             </div>
 
+
             <div class="tax-row">
+
                 <span>Taxable income</span>
-                <strong id="taxableIncome">$0.00</strong>
+
+                <strong id="taxableIncome">
+                    $0.00
+                </strong>
+
             </div>
 
         </div>
 
+
         <div>
 
             <div class="tax-row">
+
                 <span>Income tax</span>
-                <strong id="incomeTax">$0.00</strong>
+
+                <strong id="incomeTax">
+                    $0.00
+                </strong>
+
             </div>
 
+
             <div class="tax-row">
+
                 <span>Medicare levy</span>
-                <strong id="medicareLevy">$0.00</strong>
+
+                <strong id="medicareLevy">
+                    $0.00
+                </strong>
+
             </div>
 
+
             <div class="tax-row">
+
                 <span>Medicare levy surcharge</span>
-                <strong id="medicareSurcharge">$0.00</strong>
+
+                <strong id="medicareSurcharge">
+                    $0.00
+                </strong>
+
             </div>
 
+
             <div class="tax-row">
+
                 <span>HELP repayment</span>
-                <strong id="helpRepayment">$0.00</strong>
+
+                <strong id="helpRepayment">
+                    $0.00
+                </strong>
+
             </div>
+
 
             <div class="tax-row total">
-                <span>Total government deductions</span>
-                <strong id="totalGovernment">$0.00</strong>
+
+                <span>
+                    Total government deductions
+                </span>
+
+                <strong id="totalGovernment">
+                    $0.00
+                </strong>
+
             </div>
 
         </div>
@@ -584,56 +747,204 @@
     </div>
 
 
-    <!-- INSIGHTS -->
+    <!-- =================================================
+         INSIGHTS
+    ================================================== -->
+
     <div class="insight-box">
 
-        <h3>Tax & HELP Insights</h3>
+        <h3>
+            Tax & HELP Insights
+        </h3>
+
 
         <div class="insight-grid">
 
-            <div class="insight-card">
-                <div class="label">Income tax bracket</div>
-                <div class="value" id="taxBracket">—</div>
-            </div>
 
             <div class="insight-card">
-                <div class="label">Marginal income tax rate</div>
-                <div class="value" id="taxRate">—</div>
+
+                <div class="label">
+                    Income tax bracket
+                </div>
+
+                <div
+                    class="value"
+                    id="taxBracket"
+                >
+                    —
+                </div>
+
             </div>
 
-            <div class="insight-card">
-                <div class="label">Medicare levy</div>
-                <div class="value" id="medicareRate">2%</div>
-            </div>
 
             <div class="insight-card">
-                <div class="label">MLS tier</div>
-                <div class="value" id="mlsTier">—</div>
+
+                <div class="label">
+                    Marginal income tax rate
+                </div>
+
+                <div
+                    class="value"
+                    id="taxRate"
+                >
+                    —
+                </div>
+
             </div>
 
-            <div class="insight-card">
-                <div class="label">MLS rate</div>
-                <div class="value" id="mlsRate">—</div>
-            </div>
 
             <div class="insight-card">
-                <div class="label">HELP repayment bracket</div>
-                <div class="value" id="helpBracket">—</div>
+
+                <div class="label">
+                    Medicare levy
+                </div>
+
+                <div
+                    class="value"
+                    id="medicareRate"
+                >
+                    —
+                </div>
+
             </div>
 
-            <div class="insight-card">
-                <div class="label">HELP marginal rate</div>
-                <div class="value" id="helpRate">—</div>
-            </div>
 
             <div class="insight-card">
-                <div class="label">HELP repayment income</div>
-                <div class="value" id="helpIncome">$0.00</div>
+
+                <div class="label">
+                    MLS tier
+                </div>
+
+                <div
+                    class="value"
+                    id="mlsTier"
+                >
+                    —
+                </div>
+
             </div>
 
+
             <div class="insight-card">
-                <div class="label">Effective HELP repayment</div>
-                <div class="value" id="helpEffectiveRate">0%</div>
+
+                <div class="label">
+                    MLS rate
+                </div>
+
+                <div
+                    class="value"
+                    id="mlsRate"
+                >
+                    —
+                </div>
+
+            </div>
+
+
+            <div class="insight-card">
+
+                <div class="label">
+                    HELP repayment bracket
+                </div>
+
+                <div
+                    class="value"
+                    id="helpBracket"
+                >
+                    —
+                </div>
+
+            </div>
+
+
+            <div class="insight-card">
+
+                <div class="label">
+                    HELP marginal rate
+                </div>
+
+                <div
+                    class="value"
+                    id="helpRate"
+                >
+                    —
+                </div>
+
+            </div>
+
+
+            <div class="insight-card">
+
+                <div class="label">
+                    HELP repayment income
+                </div>
+
+                <div
+                    class="value"
+                    id="helpIncome"
+                >
+                    $0.00
+                </div>
+
+            </div>
+
+
+            <div class="insight-card">
+
+                <div class="label">
+                    Effective HELP rate
+                </div>
+
+                <div
+                    class="value"
+                    id="helpEffectiveRate"
+                >
+                    0.00%
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =============================================
+             TRANSPARENT HELP CALCULATION
+        ============================================== -->
+
+        <div class="help-calculation">
+
+            <h4>
+                How your HELP repayment is calculated
+            </h4>
+
+
+            <div
+                class="calculation-line"
+                id="helpCalculationLine1"
+            >
+                Enter your income to see the calculation.
+            </div>
+
+
+            <div
+                class="calculation-line"
+                id="helpCalculationLine2"
+            >
+            </div>
+
+
+            <div
+                class="calculation-line"
+                id="helpCalculationLine3"
+            >
+            </div>
+
+
+            <div
+                class="calculation-result"
+                id="helpCalculationResult"
+            >
+                Estimated HELP repayment: $0.00
             </div>
 
         </div>
@@ -643,40 +954,94 @@
 </section>
 
 
-<!-- AFTER TAX -->
+<!-- =====================================================
+     AFTER TAX
+===================================================== -->
+
 <section class="section">
 
     <div class="section-header">
 
         <div>
-            <h2>After-Tax Income</h2>
+
+            <h2>
+                After-Tax Income
+            </h2>
+
             <div class="section-description">
-                Estimated income remaining after income tax, Medicare, MLS and HELP.
+                Estimated income remaining after income tax, Medicare,
+                MLS and HELP.
             </div>
+
         </div>
 
     </div>
+
 
     <div class="summary-grid">
 
-        <div class="summary-card">
-            <div class="label">Annual</div>
-            <div class="value" id="afterTaxAnnual">$0</div>
-        </div>
 
         <div class="summary-card">
-            <div class="label">Monthly</div>
-            <div class="value" id="afterTaxMonthly">$0</div>
+
+            <div class="label">
+                Annual
+            </div>
+
+            <div
+                class="value"
+                id="afterTaxAnnual"
+            >
+                $0.00
+            </div>
+
         </div>
 
-        <div class="summary-card">
-            <div class="label">Weekly</div>
-            <div class="value" id="afterTaxWeekly">$0</div>
-        </div>
 
         <div class="summary-card">
-            <div class="label">Hourly equivalent</div>
-            <div class="value" id="afterTaxHourly">$0</div>
+
+            <div class="label">
+                Monthly
+            </div>
+
+            <div
+                class="value"
+                id="afterTaxMonthly"
+            >
+                $0.00
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="label">
+                Weekly
+            </div>
+
+            <div
+                class="value"
+                id="afterTaxWeekly"
+            >
+                $0.00
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="label">
+                Hourly equivalent
+            </div>
+
+            <div
+                class="value"
+                id="afterTaxHourly"
+            >
+                $0.00
+            </div>
+
         </div>
 
     </div>
@@ -684,47 +1049,97 @@
 </section>
 
 
-<!-- LIVING EXPENSES -->
+<!-- =====================================================
+     LIVING EXPENSES
+===================================================== -->
+
 <section class="section">
 
     <div class="section-header">
 
         <div>
-            <h2>Living Expenses</h2>
+
+            <h2>
+                Living Expenses
+            </h2>
 
             <div class="section-description">
-                Enter each expense using the frequency that makes the most sense. The planner automatically converts everything into weekly, monthly and annual equivalents.
+                Enter each expense using the frequency that makes the most
+                sense. Everything is automatically converted into annual,
+                monthly and weekly equivalents.
             </div>
+
         </div>
 
-        <button class="add-button" onclick="addExpense()">
+
+        <button
+            class="add-button"
+            onclick="addExpense()"
+        >
             + Add expense
         </button>
 
     </div>
+
 
     <div id="expenseContainer"></div>
 
 
     <div class="expense-summary">
 
-        <h3>Total Living Expenses</h3>
+        <h3>
+            Total Living Expenses
+        </h3>
+
 
         <div class="expense-summary-grid">
 
-            <div class="expense-summary-card">
-                <div class="label">Annual</div>
-                <div class="value" id="expenseAnnual">$0</div>
-            </div>
 
             <div class="expense-summary-card">
-                <div class="label">Monthly</div>
-                <div class="value" id="expenseMonthly">$0</div>
+
+                <div class="label">
+                    Annual
+                </div>
+
+                <div
+                    class="value"
+                    id="expenseAnnual"
+                >
+                    $0.00
+                </div>
+
             </div>
 
+
             <div class="expense-summary-card">
-                <div class="label">Weekly</div>
-                <div class="value" id="expenseWeekly">$0</div>
+
+                <div class="label">
+                    Monthly
+                </div>
+
+                <div
+                    class="value"
+                    id="expenseMonthly"
+                >
+                    $0.00
+                </div>
+
+            </div>
+
+
+            <div class="expense-summary-card">
+
+                <div class="label">
+                    Weekly
+                </div>
+
+                <div
+                    class="value"
+                    id="expenseWeekly"
+                >
+                    $0.00
+                </div>
+
             </div>
 
         </div>
@@ -734,22 +1149,37 @@
 </section>
 
 
-<!-- MONEY AVAILABLE -->
+<!-- =====================================================
+     MONEY AVAILABLE
+===================================================== -->
+
 <section class="section">
 
     <div class="available">
 
-        <h3>Money Available After Living Expenses</h3>
+        <h3>
+            Money Available After Living Expenses
+        </h3>
 
-        <div class="big-number" id="availableWeekly">
-            $0 / week
+
+        <div
+            class="big-number"
+            id="availableWeekly"
+        >
+            $0.00 / week
         </div>
 
+
         <p>
-            This is the amount remaining after estimated government deductions and your living expenses.
+            This is the amount remaining after estimated government
+            deductions and living expenses.
         </p>
 
-        <div class="status" id="budgetStatus">
+
+        <div
+            class="status"
+            id="budgetStatus"
+        >
             —
         </div>
 
@@ -758,20 +1188,33 @@
 </section>
 
 
-<!-- DISCRETIONARY PLANNING -->
+<!-- =====================================================
+     DISCRETIONARY ALLOCATION
+===================================================== -->
+
 <section class="section">
 
     <div class="section-header">
 
         <div>
-            <h2>Discretionary Spending & Allocation</h2>
+
+            <h2>
+                Discretionary Spending & Allocation
+            </h2>
 
             <div class="section-description">
-                Decide how your remaining money should be divided between savings, travel, consumables, piano/music and other variable spending.
+                Decide where your remaining money should go. You can allocate
+                either a percentage of your remaining money or a fixed dollar
+                amount per week.
             </div>
+
         </div>
 
-        <button class="add-button" onclick="addAllocation()">
+
+        <button
+            class="add-button"
+            onclick="addAllocation()"
+        >
             + Add allocation
         </button>
 
@@ -783,7 +1226,9 @@
 
     <div class="allocation-total">
 
-        <span>Total allocated</span>
+        <span>
+            Total allocated
+        </span>
 
         <span id="allocationTotal">
             $0.00 / week
@@ -791,9 +1236,12 @@
 
     </div>
 
+
     <div class="allocation-total">
 
-        <span>Remaining unallocated</span>
+        <span>
+            Remaining unallocated
+        </span>
 
         <span id="allocationRemaining">
             $0.00 / week
@@ -814,27 +1262,35 @@
 
 <script>
 
-/* =========================================================
-   BASIC FORMATTING
-========================================================= */
+/* =====================================================
+   GENERAL FUNCTIONS
+===================================================== */
 
 function money(value) {
-    return "$" + Number(value || 0).toLocaleString("en-AU", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-    });
+
+    return "$" + Number(value || 0).toLocaleString(
+        "en-AU",
+        {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }
+    );
 }
 
-function round(value) {
-    return Math.round((value + Number.EPSILON) * 100) / 100;
+
+function percentage(value) {
+
+    return Number(value || 0).toFixed(2) + "%";
+
 }
 
 
-/* =========================================================
+/* =====================================================
    INCOME
-========================================================= */
+===================================================== */
 
 let incomeCounter = 0;
+
 
 function addIncome(
     source = "",
@@ -849,9 +1305,11 @@ function addIncome(
 
     row.dataset.id = incomeCounter;
 
+
     row.innerHTML = `
 
         <td>
+
             <input
                 class="source-input"
                 type="text"
@@ -859,24 +1317,38 @@ function addIncome(
                 value="${source}"
                 oninput="calculateAll()"
             >
+
         </td>
 
+
         <td>
+
             <select
                 class="income-type"
                 onchange="calculateAll()"
             >
-                <option value="annual" ${type === "annual" ? "selected" : ""}>
+
+                <option
+                    value="annual"
+                    ${type === "annual" ? "selected" : ""}
+                >
                     Annual salary
                 </option>
 
-                <option value="hourly" ${type === "hourly" ? "selected" : ""}>
+                <option
+                    value="hourly"
+                    ${type === "hourly" ? "selected" : ""}
+                >
                     Hourly / casual
                 </option>
+
             </select>
+
         </td>
 
+
         <td>
+
             <input
                 class="income-input amount-input"
                 type="number"
@@ -886,9 +1358,12 @@ function addIncome(
                 value="${amount}"
                 oninput="calculateAll()"
             >
+
         </td>
 
+
         <td>
+
             <input
                 class="hours-input hours-input-field"
                 type="number"
@@ -898,39 +1373,64 @@ function addIncome(
                 value="${hours}"
                 oninput="calculateAll()"
             >
+
         </td>
 
-        <td class="annual-value">$0.00</td>
 
-        <td class="monthly-value">$0.00</td>
+        <td class="annual-value">
+            $0.00
+        </td>
 
-        <td class="weekly-value">$0.00</td>
 
-        <td class="hourly-value">—</td>
+        <td class="monthly-value">
+            $0.00
+        </td>
+
+
+        <td class="weekly-value">
+            $0.00
+        </td>
+
+
+        <td class="hourly-value">
+            —
+        </td>
+
 
         <td>
+
             <button
                 class="delete-button"
-                onclick="this.closest('tr').remove(); calculateAll();"
+                onclick="
+                    this.closest('tr').remove();
+                    calculateAll();
+                "
                 title="Delete income source"
             >
                 ×
             </button>
+
         </td>
 
     `;
 
-    document.getElementById("incomeBody").appendChild(row);
+
+    document
+        .getElementById("incomeBody")
+        .appendChild(row);
+
 
     calculateAll();
+
 }
 
 
-/* =========================================================
+/* =====================================================
    EXPENSES
-========================================================= */
+===================================================== */
 
 let expenseCounter = 0;
+
 
 function addExpense(
     name = "",
@@ -946,6 +1446,7 @@ function addExpense(
 
     row.dataset.id = expenseCounter;
 
+
     row.innerHTML = `
 
         <input
@@ -954,6 +1455,7 @@ function addExpense(
             value="${name}"
             oninput="calculateAll()"
         >
+
 
         <input
             type="number"
@@ -964,33 +1466,48 @@ function addExpense(
             oninput="calculateAll()"
         >
 
-        <select onchange="calculateAll()">
 
-            <option value="weekly"
-                ${frequency === "weekly" ? "selected" : ""}>
+        <select
+            onchange="calculateAll()"
+        >
+
+            <option
+                value="weekly"
+                ${frequency === "weekly" ? "selected" : ""}
+            >
                 Weekly
             </option>
 
-            <option value="fortnightly"
-                ${frequency === "fortnightly" ? "selected" : ""}>
+            <option
+                value="fortnightly"
+                ${frequency === "fortnightly" ? "selected" : ""}
+            >
                 Fortnightly
             </option>
 
-            <option value="monthly"
-                ${frequency === "monthly" ? "selected" : ""}>
+            <option
+                value="monthly"
+                ${frequency === "monthly" ? "selected" : ""}
+            >
                 Monthly
             </option>
 
-            <option value="annual"
-                ${frequency === "annual" ? "selected" : ""}>
+            <option
+                value="annual"
+                ${frequency === "annual" ? "selected" : ""}
+            >
                 Annual
             </option>
 
         </select>
 
+
         <button
             class="delete-button"
-            onclick="this.closest('.expense-row').remove(); calculateAll();"
+            onclick="
+                this.closest('.expense-row').remove();
+                calculateAll();
+            "
             title="Delete expense"
         >
             ×
@@ -998,17 +1515,23 @@ function addExpense(
 
     `;
 
-    document.getElementById("expenseContainer").appendChild(row);
+
+    document
+        .getElementById("expenseContainer")
+        .appendChild(row);
+
 
     calculateAll();
+
 }
 
 
-/* =========================================================
+/* =====================================================
    DISCRETIONARY ALLOCATIONS
-========================================================= */
+===================================================== */
 
 let allocationCounter = 0;
+
 
 function addAllocation(
     name = "",
@@ -1024,6 +1547,7 @@ function addAllocation(
 
     row.dataset.id = allocationCounter;
 
+
     row.innerHTML = `
 
         <input
@@ -1033,19 +1557,27 @@ function addAllocation(
             oninput="calculateAll()"
         >
 
-        <select onchange="calculateAll()">
 
-            <option value="percentage"
-                ${mode === "percentage" ? "selected" : ""}>
+        <select
+            onchange="calculateAll()"
+        >
+
+            <option
+                value="percentage"
+                ${mode === "percentage" ? "selected" : ""}
+            >
                 Percentage
             </option>
 
-            <option value="dollar"
-                ${mode === "dollar" ? "selected" : ""}>
+            <option
+                value="dollar"
+                ${mode === "dollar" ? "selected" : ""}
+            >
                 $ / week
             </option>
 
         </select>
+
 
         <input
             type="number"
@@ -1056,9 +1588,13 @@ function addAllocation(
             oninput="calculateAll()"
         >
 
+
         <button
             class="delete-button"
-            onclick="this.closest('.allocation-row').remove(); calculateAll();"
+            onclick="
+                this.closest('.allocation-row').remove();
+                calculateAll();
+            "
             title="Delete allocation"
         >
             ×
@@ -1066,589 +1602,1163 @@ function addAllocation(
 
     `;
 
-    document.getElementById("allocationContainer").appendChild(row);
+
+    document
+        .getElementById("allocationContainer")
+        .appendChild(row);
+
 
     calculateAll();
+
 }
 
 
-/* =========================================================
+/* =====================================================
    INCOME CALCULATION
-========================================================= */
+===================================================== */
 
 function calculateIncome() {
 
-    const rows = document.querySelectorAll("#incomeBody tr");
+    const rows =
+        document.querySelectorAll("#incomeBody tr");
 
     let totalAnnual = 0;
+
 
     rows.forEach(row => {
 
         const type =
             row.querySelector(".income-type").value;
 
+
         const amount =
-            Number(row.querySelector(".amount-input").value) || 0;
+            Number(
+                row.querySelector(".amount-input").value
+            ) || 0;
+
 
         const hours =
-            Number(row.querySelector(".hours-input-field").value) || 0;
+            Number(
+                row.querySelector(".hours-input-field").value
+            ) || 0;
+
 
         let annual = 0;
+
         let hourly = 0;
+
 
         if (type === "annual") {
 
+            /*
+               Annual salary is the user input.
+            */
+
             annual = amount;
 
+
+            /*
+               Hourly is only an equivalent estimate.
+            */
+
             if (hours > 0) {
-                hourly = annual / (hours * 52);
+
+                hourly =
+                    annual / (hours * 52);
+
             }
 
         } else {
 
+            /*
+               Hourly/casual income:
+
+               hourly rate × hours/week × 52
+            */
+
             hourly = amount;
 
-            annual = hourly * hours * 52;
+            annual =
+                hourly * hours * 52;
 
         }
 
-        const monthly = annual / 12;
 
-        const weekly = annual / 52;
+        const monthly =
+            annual / 12;
+
+
+        const weekly =
+            annual / 52;
+
 
         totalAnnual += annual;
 
-        row.querySelector(".annual-value").textContent =
-            money(annual);
 
-        row.querySelector(".monthly-value").textContent =
-            money(monthly);
+        row.querySelector(".annual-value")
+            .textContent = money(annual);
 
-        row.querySelector(".weekly-value").textContent =
-            money(weekly);
 
-        row.querySelector(".hourly-value").textContent =
-            hourly > 0 ? money(hourly) : "—";
+        row.querySelector(".monthly-value")
+            .textContent = money(monthly);
+
+
+        row.querySelector(".weekly-value")
+            .textContent = money(weekly);
+
+
+        row.querySelector(".hourly-value")
+            .textContent =
+                hourly > 0
+                    ? money(hourly)
+                    : "—";
 
     });
 
+
     return totalAnnual;
+
 }
 
 
-/* =========================================================
-   TAX BRACKETS
-========================================================= */
+/* =====================================================
+   INCOME TAX
+===================================================== */
 
-function calculateIncomeTax(income, year) {
+function calculateIncomeTax(
+    income,
+    year
+) {
 
     let tax = 0;
-    let bracket = "Tax-free threshold";
+
+    let bracket = "";
+
     let marginalRate = 0;
+
 
     if (year === "2026-27") {
 
         if (income <= 18200) {
 
             tax = 0;
-            bracket = "$0 – $18,200";
+
+            bracket =
+                "$0 – $18,200";
+
             marginalRate = 0;
 
-        } else if (income <= 45000) {
+        }
+
+        else if (income <= 45000) {
 
             tax =
                 (income - 18200) * 0.15;
 
-            bracket = "$18,201 – $45,000";
+            bracket =
+                "$18,201 – $45,000";
+
             marginalRate = 15;
 
-        } else if (income <= 135000) {
-
-            tax =
-                26800 +
-                (income - 45000) * 0.30;
-
-            bracket = "$45,001 – $135,000";
-            marginalRate = 30;
-
-        } else if (income <= 190000) {
-
-            tax =
-                53800 +
-                (income - 135000) * 0.37;
-
-            bracket = "$135,001 – $190,000";
-            marginalRate = 37;
-
-        } else {
-
-            tax =
-                74150 +
-                (income - 190000) * 0.45;
-
-            bracket = "$190,001+";
-            marginalRate = 45;
         }
 
-    } else {
+        else if (income <= 135000) {
+
+            tax =
+                4020 +
+                (income - 45000) * 0.30;
+
+            bracket =
+                "$45,001 – $135,000";
+
+            marginalRate = 30;
+
+        }
+
+        else if (income <= 190000) {
+
+            tax =
+                31020 +
+                (income - 135000) * 0.37;
+
+            bracket =
+                "$135,001 – $190,000";
+
+            marginalRate = 37;
+
+        }
+
+        else {
+
+            tax =
+                51370 +
+                (income - 190000) * 0.45;
+
+            bracket =
+                "$190,001+";
+
+            marginalRate = 45;
+
+        }
+
+    }
+
+    else {
 
         /* 2025–26 */
 
         if (income <= 18200) {
 
             tax = 0;
-            bracket = "$0 – $18,200";
+
+            bracket =
+                "$0 – $18,200";
+
             marginalRate = 0;
 
-        } else if (income <= 45000) {
+        }
+
+        else if (income <= 45000) {
 
             tax =
                 (income - 18200) * 0.16;
 
-            bracket = "$18,201 – $45,000";
+            bracket =
+                "$18,201 – $45,000";
+
             marginalRate = 16;
 
-        } else if (income <= 135000) {
+        }
+
+        else if (income <= 135000) {
 
             tax =
                 4288 +
                 (income - 45000) * 0.30;
 
-            bracket = "$45,001 – $135,000";
+            bracket =
+                "$45,001 – $135,000";
+
             marginalRate = 30;
 
-        } else if (income <= 190000) {
+        }
+
+        else if (income <= 190000) {
 
             tax =
                 31288 +
                 (income - 135000) * 0.37;
 
-            bracket = "$135,001 – $190,000";
+            bracket =
+                "$135,001 – $190,000";
+
             marginalRate = 37;
 
-        } else {
+        }
+
+        else {
 
             tax =
                 51638 +
                 (income - 190000) * 0.45;
 
-            bracket = "$190,001+";
+            bracket =
+                "$190,001+";
+
             marginalRate = 45;
+
         }
+
     }
 
+
     return {
+
         tax: Math.max(0, tax),
-        bracket,
-        marginalRate
+
+        bracket: bracket,
+
+        marginalRate: marginalRate
+
     };
+
 }
 
 
-/* =========================================================
+/* =====================================================
    MEDICARE LEVY
-========================================================= */
+===================================================== */
 
-function calculateMedicare(income) {
+function calculateMedicare(
+    income
+) {
 
     /*
-       Simplified estimate using the standard 2% Medicare levy.
-       Low-income shade-in rules are not modelled here.
+       Simple planning estimate.
+
+       Full standard Medicare levy:
+       2% of taxable income.
+
+       Low-income phase-in is intentionally not
+       modelled in this version.
     */
 
     if (income <= 0) {
+
         return 0;
+
     }
 
+
     return income * 0.02;
+
 }
 
 
-/* =========================================================
+/* =====================================================
    MEDICARE LEVY SURCHARGE
-========================================================= */
+===================================================== */
 
-function calculateMLS(income, hasHospital) {
+function calculateMLS(
+    income,
+    hasHospital
+) {
 
     if (hasHospital === "yes") {
 
         return {
+
             amount: 0,
+
             rate: 0,
-            tier: "No surcharge — private hospital cover"
+
+            tier:
+                "No surcharge — private hospital cover"
+
         };
 
     }
 
-    /*
-       Current single-person MLS thresholds.
-    */
 
     if (income <= 97000) {
 
         return {
+
             amount: 0,
+
             rate: 0,
+
             tier: "Base tier"
+
         };
 
-    } else if (income <= 113000) {
-
-        return {
-            amount: income * 0.01,
-            rate: 1,
-            tier: "Tier 1"
-        };
-
-    } else if (income <= 151000) {
-
-        return {
-            amount: income * 0.0125,
-            rate: 1.25,
-            tier: "Tier 2"
-        };
-
-    } else {
-
-        return {
-            amount: income * 0.015,
-            rate: 1.5,
-            tier: "Tier 3"
-        };
     }
+
+
+    if (income <= 113000) {
+
+        return {
+
+            amount:
+                income * 0.01,
+
+            rate: 1,
+
+            tier: "Tier 1"
+
+        };
+
+    }
+
+
+    if (income <= 151000) {
+
+        return {
+
+            amount:
+                income * 0.0125,
+
+            rate: 1.25,
+
+            tier: "Tier 2"
+
+        };
+
+    }
+
+
+    return {
+
+        amount:
+            income * 0.015,
+
+        rate: 1.5,
+
+        tier: "Tier 3"
+
+    };
+
 }
 
 
-/* =========================================================
+/* =====================================================
    HELP / HECS
-========================================================= */
+===================================================== */
 
-function calculateHELP(income, year, hasHELP) {
+/*
+   IMPORTANT:
 
-    if (hasHELP !== "yes") {
+   This function deliberately returns:
+
+   1. repayment
+   2. bracket
+   3. marginal rate
+   4. threshold
+   5. calculation text
+
+   This prevents the Insight section from accidentally
+   treating the effective rate as the marginal HELP rate.
+*/
+
+
+function calculateHELP(
+    repaymentIncome,
+    year,
+    hasHELP
+) {
+
+    if (
+        hasHELP !== "yes" ||
+        repaymentIncome <= 0
+    ) {
 
         return {
+
             repayment: 0,
-            bracket: "No HELP debt selected",
-            rate: 0
+
+            bracket:
+                "No HELP repayment",
+
+            rate: 0,
+
+            threshold: 0,
+
+            calculation:
+                "No HELP repayment applies."
+
         };
 
     }
 
-    /*
-       2025–26:
-       $0–67,000       = nil
-       $67,001–125,000 = 15% of amount above $67,000
-       $125,001–179,285 = $8,700 + 17% above $125,000
-       $179,286+       = 10% of repayment income
 
-       2026–27:
-       $0–69,528       = nil
-       $69,529–129,717 = 15% above $69,528
-       $129,718–186,050 = $9,028.35 + 17% above $129,717
-       $186,051+       = 10% of repayment income
-    */
-
-    let repayment = 0;
-    let bracket = "";
-    let rate = 0;
+    /* =============================================
+       2025–26
+    ============================================== */
 
     if (year === "2025-26") {
 
-        if (income <= 67000) {
 
-            repayment = 0;
-            bracket = "Below $67,000";
-            rate = 0;
+        if (repaymentIncome <= 67000) {
 
-        } else if (income <= 125000) {
+            return {
 
-            repayment =
-                (income - 67000) * 0.15;
+                repayment: 0,
 
-            bracket = "$67,001 – $125,000";
-            rate = 15;
+                bracket:
+                    "$0 – $67,000",
 
-        } else if (income <= 179285) {
+                rate: 0,
 
-            repayment =
+                threshold: 67000,
+
+                calculation:
+                    "Repayment income is at or below $67,000."
+
+            };
+
+        }
+
+
+        if (repaymentIncome <= 125000) {
+
+            const amountAbove =
+                repaymentIncome - 67000;
+
+
+            const repayment =
+                amountAbove * 0.15;
+
+
+            return {
+
+                repayment: repayment,
+
+                bracket:
+                    "$67,001 – $125,000",
+
+                rate: 15,
+
+                threshold: 67000,
+
+                calculation:
+                    `${money(repaymentIncome)} − ${money(67000)} = ${money(amountAbove)}; ${money(amountAbove)} × 15% = ${money(repayment)}`
+
+            };
+
+        }
+
+
+        if (repaymentIncome <= 179285) {
+
+            const amountAbove =
+                repaymentIncome - 125000;
+
+
+            const repayment =
                 8700 +
-                (income - 125000) * 0.17;
+                amountAbove * 0.17;
 
-            bracket = "$125,001 – $179,285";
-            rate = 17;
 
-        } else {
+            return {
 
-            repayment =
-                income * 0.10;
+                repayment: repayment,
 
-            bracket = "$179,286+";
-            rate = 10;
+                bracket:
+                    "$125,001 – $179,285",
+
+                rate: 17,
+
+                threshold: 125000,
+
+                calculation:
+                    `${money(8700)} + (${money(repaymentIncome)} − ${money(125000)}) × 17% = ${money(repayment)}`
+
+            };
+
         }
 
-    } else {
 
-        if (income <= 69528) {
+        const repayment =
+            repaymentIncome * 0.10;
 
-            repayment = 0;
-            bracket = "Below $69,528";
-            rate = 0;
 
-        } else if (income <= 129717) {
+        return {
 
-            repayment =
-                (income - 69528) * 0.15;
+            repayment: repayment,
 
-            bracket = "$69,529 – $129,717";
-            rate = 15;
+            bracket:
+                "$179,286+",
 
-        } else if (income <= 186050) {
+            rate: 10,
 
-            repayment =
-                9028.35 +
-                (income - 129717) * 0.17;
+            threshold: 179285,
 
-            bracket = "$129,718 – $186,050";
-            rate = 17;
+            calculation:
+                `${money(repaymentIncome)} × 10% = ${money(repayment)}`
 
-        } else {
+        };
 
-            repayment =
-                income * 0.10;
-
-            bracket = "$186,051+";
-            rate = 10;
-        }
     }
 
+
+    /* =============================================
+       2026–27
+    ============================================== */
+
     /*
-       HELP repayment cannot exceed 10% of repayment income.
+       2026–27 thresholds:
+
+       $0 – $69,528
+           Nil
+
+       $69,529 – $129,717
+           15c per $1 above $69,528
+
+       $129,718 – $186,050
+           $9,028.35 + 17c per $1 above $129,717
+
+       $186,051+
+           10% of total repayment income
+
+       Source:
+       Australian Government / ATO / StudyAssist
     */
 
-    repayment =
-        Math.min(repayment, income * 0.10);
+
+    if (repaymentIncome <= 69528) {
+
+        return {
+
+            repayment: 0,
+
+            bracket:
+                "$0 – $69,528",
+
+            rate: 0,
+
+            threshold: 69528,
+
+            calculation:
+                `${money(repaymentIncome)} is at or below the $69,528 minimum repayment threshold.`
+
+        };
+
+    }
+
+
+    if (repaymentIncome <= 129717) {
+
+        const amountAbove =
+            repaymentIncome - 69528;
+
+
+        const repayment =
+            amountAbove * 0.15;
+
+
+        return {
+
+            repayment: repayment,
+
+            bracket:
+                "$69,529 – $129,717",
+
+            rate: 15,
+
+            threshold: 69528,
+
+            calculation:
+                `${money(repaymentIncome)} − ${money(69528)} = ${money(amountAbove)}; ${money(amountAbove)} × 15% = ${money(repayment)}`
+
+        };
+
+    }
+
+
+    if (repaymentIncome <= 186050) {
+
+        const amountAbove =
+            repaymentIncome - 129717;
+
+
+        const repayment =
+            9028.35 +
+            amountAbove * 0.17;
+
+
+        return {
+
+            repayment: repayment,
+
+            bracket:
+                "$129,718 – $186,050",
+
+            rate: 17,
+
+            threshold: 129717,
+
+            calculation:
+                `${money(9028.35)} + (${money(repaymentIncome)} − ${money(129717)}) × 17% = ${money(repayment)}`
+
+        };
+
+    }
+
+
+    /*
+       At the top level, HELP repayment is capped at
+       10% of total repayment income.
+    */
+
+    const repayment =
+        repaymentIncome * 0.10;
+
 
     return {
-        repayment: Math.max(0, repayment),
-        bracket,
-        rate
+
+        repayment: repayment,
+
+        bracket:
+            "$186,051+",
+
+        rate: 10,
+
+        threshold: 186050,
+
+        calculation:
+            `${money(repaymentIncome)} × 10% = ${money(repayment)}`
+
     };
+
 }
 
 
-/* =========================================================
+/* =====================================================
    EXPENSE CALCULATION
-========================================================= */
+===================================================== */
 
 function calculateExpenses() {
 
     const rows =
-        document.querySelectorAll(".expense-row");
+        document.querySelectorAll(
+            ".expense-row"
+        );
+
 
     let annual = 0;
 
-    rows.forEach(row => {
-
-        const amount =
-            Number(row.querySelectorAll("input")[1].value) || 0;
-
-        const frequency =
-            row.querySelector("select").value;
-
-        let rowAnnual = 0;
-
-        if (frequency === "weekly") {
-
-            rowAnnual = amount * 52;
-
-        } else if (frequency === "fortnightly") {
-
-            rowAnnual = amount * 26;
-
-        } else if (frequency === "monthly") {
-
-            rowAnnual = amount * 12;
-
-        } else if (frequency === "annual") {
-
-            rowAnnual = amount;
-
-        }
-
-        annual += rowAnnual;
-    });
-
-    return annual;
-}
-
-
-/* =========================================================
-   DISCRETIONARY ALLOCATION
-========================================================= */
-
-function calculateAllocations(availableWeekly) {
-
-    const rows =
-        document.querySelectorAll(".allocation-row");
-
-    let total = 0;
 
     rows.forEach(row => {
 
         const inputs =
             row.querySelectorAll("input");
 
+
+        const amount =
+            Number(inputs[1].value) || 0;
+
+
+        const frequency =
+            row.querySelector("select").value;
+
+
+        let rowAnnual = 0;
+
+
+        if (frequency === "weekly") {
+
+            rowAnnual =
+                amount * 52;
+
+        }
+
+        else if (frequency === "fortnightly") {
+
+            rowAnnual =
+                amount * 26;
+
+        }
+
+        else if (frequency === "monthly") {
+
+            rowAnnual =
+                amount * 12;
+
+        }
+
+        else if (frequency === "annual") {
+
+            rowAnnual =
+                amount;
+
+        }
+
+
+        annual += rowAnnual;
+
+    });
+
+
+    return annual;
+
+}
+
+
+/* =====================================================
+   ALLOCATION CALCULATION
+===================================================== */
+
+function calculateAllocations(
+    availableWeekly
+) {
+
+    const rows =
+        document.querySelectorAll(
+            ".allocation-row"
+        );
+
+
+    let total = 0;
+
+
+    rows.forEach(row => {
+
+        const inputs =
+            row.querySelectorAll("input");
+
+
         const mode =
             row.querySelector("select").value;
+
 
         const value =
             Number(inputs[1].value) || 0;
 
+
         let weeklyAmount = 0;
+
 
         if (mode === "percentage") {
 
             weeklyAmount =
-                availableWeekly * (value / 100);
+                availableWeekly *
+                (value / 100);
 
-        } else {
-
-            weeklyAmount = value;
         }
 
+        else {
+
+            weeklyAmount =
+                value;
+
+        }
+
+
         total += weeklyAmount;
+
     });
+
 
     const remaining =
         availableWeekly - total;
 
-    document.getElementById("allocationTotal")
-        .textContent = money(total) + " / week";
 
-    document.getElementById("allocationRemaining")
-        .textContent = money(remaining) + " / week";
+    document
+        .getElementById("allocationTotal")
+        .textContent =
+            money(total) +
+            " / week";
 
-    const remainingElement =
-        document.getElementById("allocationRemaining");
+
+    document
+        .getElementById("allocationRemaining")
+        .textContent =
+            money(remaining) +
+            " / week";
+
+
+    const element =
+        document.getElementById(
+            "allocationRemaining"
+        );
+
+
+    element.classList.remove(
+        "success",
+        "warning",
+        "danger"
+    );
+
 
     if (remaining < -0.01) {
 
-        remainingElement.classList.add("warning");
-        remainingElement.classList.remove("success");
+        element.classList.add(
+            "danger"
+        );
 
-    } else {
-
-        remainingElement.classList.add("success");
-        remainingElement.classList.remove("warning");
     }
+
+    else {
+
+        element.classList.add(
+            "success"
+        );
+
+    }
+
 }
 
 
-/* =========================================================
+/* =====================================================
    MAIN CALCULATION
-========================================================= */
+===================================================== */
 
 function calculateAll() {
 
-    /* ---------- Income ---------- */
+
+    /* -----------------------------------------------
+       INCOME
+    ------------------------------------------------ */
 
     const totalIncome =
         calculateIncome();
 
-    document.getElementById("taxTotalIncome")
-        .textContent = money(totalIncome);
 
-    document.getElementById("taxableIncome")
-        .textContent = money(totalIncome);
+    document
+        .getElementById("taxTotalIncome")
+        .textContent =
+            money(totalIncome);
 
 
-    /* ---------- Tax ---------- */
+    document
+        .getElementById("taxableIncome")
+        .textContent =
+            money(totalIncome);
+
+
+    /* -----------------------------------------------
+       TAX YEAR
+    ------------------------------------------------ */
 
     const year =
-        document.getElementById("taxYear").value;
+        document
+            .getElementById("taxYear")
+            .value;
+
+
+    /* -----------------------------------------------
+       INCOME TAX
+    ------------------------------------------------ */
 
     const taxResult =
-        calculateIncomeTax(totalIncome, year);
+        calculateIncomeTax(
+            totalIncome,
+            year
+        );
+
 
     const incomeTax =
         taxResult.tax;
 
-    document.getElementById("incomeTax")
-        .textContent = money(incomeTax);
 
-    document.getElementById("taxBracket")
-        .textContent = taxResult.bracket;
-
-    document.getElementById("taxRate")
-        .textContent = taxResult.marginalRate + "%";
+    document
+        .getElementById("incomeTax")
+        .textContent =
+            money(incomeTax);
 
 
-    /* ---------- Medicare ---------- */
+    document
+        .getElementById("taxBracket")
+        .textContent =
+            taxResult.bracket;
+
+
+    document
+        .getElementById("taxRate")
+        .textContent =
+            taxResult.marginalRate + "%";
+
+
+    /* -----------------------------------------------
+       MEDICARE
+    ------------------------------------------------ */
 
     const medicare =
-        calculateMedicare(totalIncome);
-
-    document.getElementById("medicareLevy")
-        .textContent = money(medicare);
-
-    document.getElementById("medicareRate")
-        .textContent = totalIncome > 0 ? "2%" : "—";
+        calculateMedicare(
+            totalIncome
+        );
 
 
-    /* ---------- MLS ---------- */
+    document
+        .getElementById("medicareLevy")
+        .textContent =
+            money(medicare);
+
+
+    document
+        .getElementById("medicareRate")
+        .textContent =
+            totalIncome > 0
+                ? "2%"
+                : "—";
+
+
+    /* -----------------------------------------------
+       MLS
+    ------------------------------------------------ */
 
     const hospital =
-        document.getElementById("privateHospital").value;
+        document
+            .getElementById(
+                "privateHospital"
+            )
+            .value;
+
 
     const mls =
-        calculateMLS(totalIncome, hospital);
-
-    document.getElementById("medicareSurcharge")
-        .textContent = money(mls.amount);
-
-    document.getElementById("mlsTier")
-        .textContent = mls.tier;
-
-    document.getElementById("mlsRate")
-        .textContent = mls.rate + "%";
+        calculateMLS(
+            totalIncome,
+            hospital
+        );
 
 
-    /* ---------- HELP ---------- */
+    document
+        .getElementById("medicareSurcharge")
+        .textContent =
+            money(mls.amount);
+
+
+    document
+        .getElementById("mlsTier")
+        .textContent =
+            mls.tier;
+
+
+    document
+        .getElementById("mlsRate")
+        .textContent =
+            mls.rate + "%";
+
+
+    /* -----------------------------------------------
+       HELP
+    ------------------------------------------------ */
 
     const hasHELP =
-        document.getElementById("hasHELP").value;
+        document
+            .getElementById("hasHELP")
+            .value;
+
+
+    /*
+       For now, taxable income is used as the
+       repayment-income starting point.
+
+       Additional HELP repayment-income items can
+       be added later.
+    */
+
+    const repaymentIncome =
+        totalIncome;
+
 
     const help =
         calculateHELP(
-            totalIncome,
+            repaymentIncome,
             year,
             hasHELP
         );
 
-    document.getElementById("helpRepayment")
-        .textContent = money(help.repayment);
 
-    document.getElementById("helpBracket")
-        .textContent = help.bracket;
+    /* Main HELP amount */
 
-    document.getElementById("helpRate")
-        .textContent = help.rate + "%";
+    document
+        .getElementById("helpRepayment")
+        .textContent =
+            money(help.repayment);
 
-    document.getElementById("helpIncome")
-        .textContent = money(totalIncome);
 
-    const helpEffective =
-        totalIncome > 0
-            ? (help.repayment / totalIncome) * 100
+    /* Bracket */
+
+    document
+        .getElementById("helpBracket")
+        .textContent =
+            help.bracket;
+
+
+    /* Marginal rate */
+
+    document
+        .getElementById("helpRate")
+        .textContent =
+            help.rate + "%";
+
+
+    /* Repayment income */
+
+    document
+        .getElementById("helpIncome")
+        .textContent =
+            money(repaymentIncome);
+
+
+    /* Effective rate */
+
+    const effectiveHELP =
+        repaymentIncome > 0
+            ? (
+                help.repayment /
+                repaymentIncome
+            ) * 100
             : 0;
 
-    document.getElementById("helpEffectiveRate")
+
+    document
+        .getElementById(
+            "helpEffectiveRate"
+        )
         .textContent =
-        helpEffective.toFixed(2) + "%";
+            percentage(
+                effectiveHELP
+            );
 
 
-    /* ---------- Government deductions ---------- */
+    /* -----------------------------------------------
+       TRANSPARENT HELP CALCULATION
+    ------------------------------------------------ */
+
+    const line1 =
+        document.getElementById(
+            "helpCalculationLine1"
+        );
+
+
+    const line2 =
+        document.getElementById(
+            "helpCalculationLine2"
+        );
+
+
+    const line3 =
+        document.getElementById(
+            "helpCalculationLine3"
+        );
+
+
+    const result =
+        document.getElementById(
+            "helpCalculationResult"
+        );
+
+
+    if (
+        hasHELP !== "yes"
+    ) {
+
+        line1.textContent =
+            "HELP / HECS debt is set to No.";
+
+        line2.textContent =
+            "";
+
+        line3.textContent =
+            "";
+
+        result.textContent =
+            "Estimated HELP repayment: $0.00";
+
+    }
+
+    else {
+
+        line1.innerHTML =
+            "<strong>Repayment income:</strong> " +
+            money(repaymentIncome);
+
+
+        line2.innerHTML =
+            "<strong>Applicable bracket:</strong> " +
+            help.bracket +
+            " → " +
+            help.rate +
+            "% marginal HELP rate";
+
+
+        line3.innerHTML =
+            "<strong>Calculation:</strong> " +
+            help.calculation;
+
+
+        result.textContent =
+            "Estimated HELP repayment: " +
+            money(help.repayment);
+
+    }
+
+
+    /* -----------------------------------------------
+       TOTAL GOVERNMENT DEDUCTIONS
+    ------------------------------------------------ */
 
     const totalGovernment =
         incomeTax +
@@ -1656,133 +2766,230 @@ function calculateAll() {
         mls.amount +
         help.repayment;
 
-    document.getElementById("totalGovernment")
-        .textContent = money(totalGovernment);
+
+    document
+        .getElementById(
+            "totalGovernment"
+        )
+        .textContent =
+            money(totalGovernment);
 
 
-    /* ---------- After-tax income ---------- */
+    /* -----------------------------------------------
+       AFTER TAX
+    ------------------------------------------------ */
 
     const afterTax =
-        Math.max(0, totalIncome - totalGovernment);
+        Math.max(
+            0,
+            totalIncome -
+            totalGovernment
+        );
+
 
     const afterTaxMonthly =
         afterTax / 12;
 
+
     const afterTaxWeekly =
         afterTax / 52;
 
+
     /*
-       Hourly equivalent uses 38 hours/week.
-       This is an equivalent rather than a direct pay rate.
+       Hourly equivalent assumes
+       38 hours/week.
     */
 
     const afterTaxHourly =
-        afterTax / (52 * 38);
-
-    document.getElementById("afterTaxAnnual")
-        .textContent = money(afterTax);
-
-    document.getElementById("afterTaxMonthly")
-        .textContent = money(afterTaxMonthly);
-
-    document.getElementById("afterTaxWeekly")
-        .textContent = money(afterTaxWeekly);
-
-    document.getElementById("afterTaxHourly")
-        .textContent = money(afterTaxHourly);
+        afterTax /
+        (52 * 38);
 
 
-    /* ---------- Living expenses ---------- */
+    document
+        .getElementById(
+            "afterTaxAnnual"
+        )
+        .textContent =
+            money(afterTax);
+
+
+    document
+        .getElementById(
+            "afterTaxMonthly"
+        )
+        .textContent =
+            money(afterTaxMonthly);
+
+
+    document
+        .getElementById(
+            "afterTaxWeekly"
+        )
+        .textContent =
+            money(afterTaxWeekly);
+
+
+    document
+        .getElementById(
+            "afterTaxHourly"
+        )
+        .textContent =
+            money(afterTaxHourly);
+
+
+    /* -----------------------------------------------
+       EXPENSES
+    ------------------------------------------------ */
 
     const expenseAnnual =
         calculateExpenses();
 
+
     const expenseMonthly =
         expenseAnnual / 12;
+
 
     const expenseWeekly =
         expenseAnnual / 52;
 
-    document.getElementById("expenseAnnual")
-        .textContent = money(expenseAnnual);
 
-    document.getElementById("expenseMonthly")
-        .textContent = money(expenseMonthly);
+    document
+        .getElementById(
+            "expenseAnnual"
+        )
+        .textContent =
+            money(expenseAnnual);
 
-    document.getElementById("expenseWeekly")
-        .textContent = money(expenseWeekly);
+
+    document
+        .getElementById(
+            "expenseMonthly"
+        )
+        .textContent =
+            money(expenseMonthly);
 
 
-    /* ---------- Money available ---------- */
+    document
+        .getElementById(
+            "expenseWeekly"
+        )
+        .textContent =
+            money(expenseWeekly);
+
+
+    /* -----------------------------------------------
+       MONEY AVAILABLE
+    ------------------------------------------------ */
 
     const availableWeekly =
-        afterTaxWeekly - expenseWeekly;
+        afterTaxWeekly -
+        expenseWeekly;
 
-    document.getElementById("availableWeekly")
+
+    document
+        .getElementById(
+            "availableWeekly"
+        )
         .textContent =
-        money(availableWeekly) + " / week";
+            money(availableWeekly) +
+            " / week";
+
 
     const status =
-        document.getElementById("budgetStatus");
+        document.getElementById(
+            "budgetStatus"
+        );
+
+
+    status.classList.remove(
+        "success",
+        "warning",
+        "danger"
+    );
+
 
     if (availableWeekly > 0.01) {
 
         status.textContent =
             "✓ Budget balanced — money remains for savings and discretionary spending.";
 
-        status.classList.add("success");
-        status.classList.remove("warning");
+        status.classList.add(
+            "success"
+        );
 
-    } else if (availableWeekly < -0.01) {
+    }
+
+    else if (availableWeekly < -0.01) {
 
         status.textContent =
             "⚠ Your living expenses currently exceed your estimated after-tax income.";
 
-        status.classList.add("warning");
-        status.classList.remove("success");
+        status.classList.add(
+            "danger"
+        );
 
-    } else {
+    }
+
+    else {
 
         status.textContent =
             "Budget exactly balanced.";
 
-        status.classList.remove("warning");
-        status.classList.remove("success");
     }
 
 
-    /* ---------- Discretionary allocation ---------- */
+    /* -----------------------------------------------
+       DISCRETIONARY ALLOCATION
+    ------------------------------------------------ */
 
     calculateAllocations(
-        Math.max(0, availableWeekly)
+        Math.max(
+            0,
+            availableWeekly
+        )
     );
+
 }
 
 
-/* =========================================================
-   START WITH EMPTY USER-EDITABLE STRUCTURE
-========================================================= */
-
-/*
-   No personal income or expense figures are pre-filled.
-*/
+/* =====================================================
+   INITIAL EMPTY PAGE
+===================================================== */
 
 window.onload = function() {
 
-    /* Start with one blank income source */
+    /*
+       IMPORTANT:
+       No personal financial information is
+       pre-populated.
+    */
+
+
+    /* One blank income source */
+
     addIncome();
 
-    /* Start with a few blank living expense rows */
-    addExpense();
-    addExpense();
+
+    /* Three blank expense rows */
+
     addExpense();
 
-    /* Start with blank discretionary categories */
+    addExpense();
+
+    addExpense();
+
+
+    /* Three blank allocation rows */
+
     addAllocation();
+
     addAllocation();
+
     addAllocation();
+
 
     calculateAll();
+
 };
 
 </script>
