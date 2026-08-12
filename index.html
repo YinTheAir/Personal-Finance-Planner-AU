@@ -1,1011 +1,1745 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Personal Finance Planner AU</title>
+```
+<title>Personal Finance Planner AU</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+<style>
+    * {
+        box-sizing: border-box;
+    }
 
-        body {
-            margin: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: #f5f7fa;
-            color: #1f2937;
-        }
+    body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: #f5f7fa;
+        color: #1f2937;
+    }
 
-        header {
-            background: #ffffff;
-            border-bottom: 1px solid #e5e7eb;
-            padding: 28px 40px;
-        }
+    header {
+        background: #ffffff;
+        border-bottom: 1px solid #e5e7eb;
+        padding: 28px 40px;
+    }
 
-        header h1 {
-            margin: 0;
-            font-size: 28px;
-        }
+    header h1 {
+        margin: 0;
+        font-size: 28px;
+    }
 
-        header p {
-            margin: 6px 0 0;
-            color: #6b7280;
-        }
+    header p {
+        margin: 6px 0 0;
+        color: #6b7280;
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
+    .container {
+        max-width: 1200px;
+        margin: 30px auto;
+        padding: 0 20px;
+    }
 
-        .section {
-            background: white;
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 24px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        }
+    .section {
+        background: white;
+        border-radius: 12px;
+        padding: 24px;
+        margin-bottom: 24px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
 
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        gap: 20px;
+    }
 
-        .section-header h2 {
-            margin: 0;
-            font-size: 20px;
-        }
+    .section-header h2 {
+        margin: 0;
+        font-size: 20px;
+    }
 
-        .section-description {
-            color: #6b7280;
-            font-size: 14px;
-            margin-top: 5px;
+    .section-description {
+        color: #6b7280;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th {
+        text-align: right;
+        padding: 10px;
+        border-bottom: 2px solid #e5e7eb;
+        font-size: 13px;
+        color: #6b7280;
+    }
+
+    th:first-child {
+        text-align: left;
+    }
+
+    td {
+        padding: 12px 10px;
+        border-bottom: 1px solid #f0f0f0;
+        text-align: right;
+    }
+
+    td:first-child {
+        text-align: left;
+    }
+
+    input,
+    select {
+        padding: 9px 10px;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        font-size: 14px;
+        width: 140px;
+        background: white;
+    }
+
+    input:focus,
+    select:focus {
+        outline: none;
+        border-color: #6b7280;
+    }
+
+    .source-input {
+        width: 170px;
+    }
+
+    .hours-input {
+        width: 105px;
+    }
+
+    .employment-select {
+        width: 130px;
+    }
+
+    .amount-input {
+        width: 130px;
+    }
+
+    .add-button {
+        border: none;
+        background: #111827;
+        color: white;
+        padding: 9px 15px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        white-space: nowrap;
+    }
+
+    .add-button:hover {
+        opacity: 0.85;
+    }
+
+    .delete-button {
+        border: none;
+        background: transparent;
+        color: #9ca3af;
+        cursor: pointer;
+        font-size: 18px;
+    }
+
+    .delete-button:hover {
+        color: #ef4444;
+    }
+
+    .total-row {
+        font-weight: bold;
+        background: #f9fafb;
+    }
+
+    .calculated {
+        white-space: nowrap;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .summary-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+    }
+
+    .summary-card {
+        background: #f9fafb;
+        border-radius: 10px;
+        padding: 20px;
+    }
+
+    .summary-card .label {
+        font-size: 13px;
+        color: #6b7280;
+        margin-bottom: 8px;
+    }
+
+    .summary-card .value {
+        font-size: 24px;
+        font-weight: 700;
+    }
+
+    .tax-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+    }
+
+    .tax-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid #f0f0f0;
+        gap: 20px;
+    }
+
+    .tax-row.total {
+        font-weight: bold;
+        font-size: 18px;
+        border-top: 2px solid #111827;
+        border-bottom: none;
+        margin-top: 8px;
+        padding-top: 16px;
+    }
+
+    .insight {
+        margin-top: 24px;
+        background: #f9fafb;
+        border-radius: 10px;
+        padding: 20px;
+    }
+
+    .insight h3 {
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+
+    .insight-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 9px 0;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .insight-row:last-child {
+        border-bottom: none;
+    }
+
+    .insight-label {
+        color: #6b7280;
+    }
+
+    .insight-value {
+        font-weight: 600;
+        text-align: right;
+    }
+
+    .settings-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+
+    .setting label {
+        display: block;
+        font-size: 13px;
+        color: #6b7280;
+        margin-bottom: 7px;
+    }
+
+    .budget-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+    }
+
+    .expense-row {
+        display: grid;
+        grid-template-columns: 1fr 120px 110px 35px;
+        gap: 10px;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .expense-row input,
+    .expense-row select {
+        width: 100%;
+    }
+
+    .available {
+        background: #eef6ff;
+        border-radius: 10px;
+        padding: 24px;
+    }
+
+    .available h3 {
+        margin-top: 0;
+    }
+
+    .big-number {
+        font-size: 34px;
+        font-weight: 700;
+    }
+
+    .status {
+        margin-top: 12px;
+        font-weight: 600;
+    }
+
+    footer {
+        text-align: center;
+        color: #9ca3af;
+        font-size: 13px;
+        padding: 30px;
+    }
+
+    @media (max-width: 900px) {
+
+        .summary-grid,
+        .settings-grid,
+        .tax-grid,
+        .budget-grid {
+            grid-template-columns: 1fr;
         }
 
         table {
-            width: 100%;
-            border-collapse: collapse;
+            min-width: 1000px;
         }
 
-        th {
-            text-align: right;
-            padding: 10px;
-            border-bottom: 2px solid #e5e7eb;
-            font-size: 13px;
-            color: #6b7280;
+        .section {
+            overflow-x: auto;
         }
 
-        th:first-child {
-            text-align: left;
+        header {
+            padding: 24px 20px;
         }
+    }
+</style>
+```
 
-        td {
-            padding: 12px 10px;
-            border-bottom: 1px solid #f0f0f0;
-            text-align: right;
-        }
-
-        td:first-child {
-            text-align: left;
-        }
-
-        input,
-        select {
-            padding: 9px 10px;
-            border: 1px solid #d1d5db;
-            border-radius: 6px;
-            font-size: 14px;
-            width: 140px;
-        }
-
-        .source-input {
-            width: 180px;
-        }
-
-        .hours-input {
-            width: 100px;
-        }
-
-        .input-cell {
-            text-align: right;
-        }
-
-        .total-row {
-            font-weight: bold;
-            background: #f9fafb;
-        }
-
-        .add-button {
-            border: none;
-            background: #111827;
-            color: white;
-            padding: 9px 15px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .add-button:hover {
-            opacity: 0.85;
-        }
-
-        .delete-button {
-            border: none;
-            background: transparent;
-            color: #9ca3af;
-            cursor: pointer;
-            font-size: 18px;
-        }
-
-        .delete-button:hover {
-            color: #ef4444;
-        }
-
-        .calculated {
-            color: #374151;
-            white-space: nowrap;
-        }
-
-        .summary-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
-        }
-
-        .summary-card {
-            background: #f9fafb;
-            border-radius: 10px;
-            padding: 20px;
-        }
-
-        .summary-card .label {
-            font-size: 13px;
-            color: #6b7280;
-            margin-bottom: 8px;
-        }
-
-        .summary-card .value {
-            font-size: 24px;
-            font-weight: 700;
-        }
-
-        .tax-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-
-        .tax-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .tax-row.total {
-            font-weight: bold;
-            font-size: 18px;
-            border-top: 2px solid #111827;
-            border-bottom: none;
-            margin-top: 8px;
-            padding-top: 16px;
-        }
-
-        .settings-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        .setting label {
-            display: block;
-            font-size: 13px;
-            color: #6b7280;
-            margin-bottom: 7px;
-        }
-
-        .budget-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-
-        .budget-row {
-            display: grid;
-            grid-template-columns: 1fr 120px 100px;
-            gap: 10px;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .budget-row input,
-        .budget-row select {
-            width: 100%;
-        }
-
-        .percentage {
-            text-align: right;
-            color: #6b7280;
-        }
-
-        .available {
-            background: #eef6ff;
-            border-radius: 10px;
-            padding: 24px;
-        }
-
-        .available h3 {
-            margin-top: 0;
-        }
-
-        .big-number {
-            font-size: 34px;
-            font-weight: 700;
-        }
-
-        .status {
-            margin-top: 12px;
-            font-weight: 600;
-        }
-
-        footer {
-            text-align: center;
-            color: #9ca3af;
-            font-size: 13px;
-            padding: 30px;
-        }
-
-        @media (max-width: 800px) {
-            .summary-grid,
-            .settings-grid,
-            .tax-grid,
-            .budget-grid {
-                grid-template-columns: 1fr;
-            }
-
-            table {
-                min-width: 900px;
-            }
-
-            .section {
-                overflow-x: auto;
-            }
-
-            header {
-                padding: 24px 20px;
-            }
-        }
-    </style>
 </head>
 
 <body>
 
 <header>
     <h1>Personal Finance Planner AU</h1>
-    <p>Income → Tax & HELP → Expenses → Money available</p>
+    <p>Income → Tax & HELP → Expenses → Money Available</p>
 </header>
 
 <div class="container">
 
-    <!-- SETTINGS -->
-    <section class="section">
+```
+<!-- ========================================================
+     SETTINGS
+     ======================================================== -->
 
-        <div class="section-header">
-            <div>
-                <h2>Tax & Personal Settings</h2>
+<section class="section">
 
-                <div class="section-description">
-                    These settings will control the tax calculations.
-                </div>
+    <div class="section-header">
+
+        <div>
+            <h2>Tax & Personal Settings</h2>
+
+            <div class="section-description">
+                These settings control the tax calculations.
             </div>
         </div>
 
-        <div class="settings-grid">
+    </div>
 
-            <div class="setting">
-                <label>Tax year</label>
+    <div class="settings-grid">
 
-                <select id="taxYear">
-                    <option value="2026-27">2026–27</option>
-                    <option value="2025-26">2025–26</option>
-                </select>
-            </div>
+        <div class="setting">
 
-            <div class="setting">
-                <label>HELP debt</label>
+            <label for="taxYear">
+                Tax year
+            </label>
 
-                <select id="helpDebt">
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
-                </select>
-            </div>
+            <select id="taxYear">
 
-            <div class="setting">
-                <label>Private hospital cover</label>
+                <option value="2026-27">
+                    2026–27
+                </option>
 
-                <select id="privateHospital">
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
-                </select>
-            </div>
+                <option value="2025-26">
+                    2025–26
+                </option>
 
-        </div>
-    </section>
-
-
-    <!-- INCOME -->
-    <section class="section">
-
-        <div class="section-header">
-
-            <div>
-                <h2>Income</h2>
-
-                <div class="section-description">
-                    Add each source of income separately.
-                </div>
-            </div>
-
-            <button
-                type="button"
-                class="add-button"
-                id="addIncomeButton">
-                + Add income source
-            </button>
+            </select>
 
         </div>
 
-        <div style="overflow-x:auto;">
 
-            <table>
+        <div class="setting">
 
-                <thead>
-                    <tr>
-                        <th>Source</th>
-                        <th>Hourly rate</th>
-                        <th>Hours / week</th>
-                        <th>Annual</th>
-                        <th>Monthly</th>
-                        <th>Fortnightly</th>
-                        <th>Weekly</th>
-                        <th></th>
-                    </tr>
-                </thead>
+            <label for="helpDebt">
+                HELP debt
+            </label>
 
-                <tbody id="incomeBody">
-                    <!-- Income rows are generated by JavaScript -->
-                </tbody>
+            <select id="helpDebt">
 
-                <tfoot>
+                <option value="yes">
+                    Yes
+                </option>
 
-                    <tr class="total-row">
+                <option value="no">
+                    No
+                </option>
 
-                        <td>Total income</td>
-
-                        <td>—</td>
-                        <td>—</td>
-
-                        <td id="totalAnnualIncome">$0.00</td>
-
-                        <td id="totalMonthlyIncome">$0.00</td>
-
-                        <td id="totalFortnightlyIncome">$0.00</td>
-
-                        <td id="totalWeeklyIncome">$0.00</td>
-
-                        <td></td>
-
-                    </tr>
-
-                </tfoot>
-
-            </table>
+            </select>
 
         </div>
 
-    </section>
 
+        <div class="setting">
 
-    <!-- TAX -->
-    <section class="section">
+            <label for="privateHospital">
+                Private hospital cover
+            </label>
 
-        <div class="section-header">
+            <select id="privateHospital">
 
-            <div>
-                <h2>Tax & Government Repayments</h2>
+                <option value="yes">
+                    Yes
+                </option>
 
-                <div class="section-description">
-                    Automatically calculated from your total taxable income.
-                </div>
-            </div>
+                <option value="no">
+                    No
+                </option>
 
-        </div>
-
-        <div class="tax-grid">
-
-            <div>
-
-                <div class="tax-row">
-                    <span>Total income</span>
-                    <strong id="taxTotalIncome">$0.00</strong>
-                </div>
-
-                <div class="tax-row">
-                    <span>Tax deductions</span>
-                    <strong>$0.00</strong>
-                </div>
-
-                <div class="tax-row">
-                    <span>Taxable income</span>
-                    <strong id="taxableIncome">$0.00</strong>
-                </div>
-
-            </div>
-
-            <div>
-
-                <div class="tax-row">
-                    <span>Income tax</span>
-                    <strong id="incomeTax">$0.00</strong>
-                </div>
-
-                <div class="tax-row">
-                    <span>Medicare levy</span>
-                    <strong id="medicareLevy">$0.00</strong>
-                </div>
-
-                <div class="tax-row">
-                    <span>Medicare levy surcharge</span>
-                    <strong id="medicareSurcharge">$0.00</strong>
-                </div>
-
-                <div class="tax-row">
-                    <span>HELP repayment</span>
-                    <strong id="helpRepayment">$0.00</strong>
-                </div>
-
-                <div class="tax-row total">
-                    <span>Total government deductions</span>
-                    <strong id="totalGovernmentDeductions">$0.00</strong>
-                </div>
-
-            </div>
+            </select>
 
         </div>
 
-    </section>
+    </div>
+
+</section>
 
 
-    <!-- AFTER TAX -->
-    <section class="section">
+<!-- ========================================================
+     INCOME
+     ======================================================== -->
 
-        <div class="section-header">
+<section class="section">
 
-            <div>
-                <h2>After-Tax Income</h2>
+    <div class="section-header">
 
-                <div class="section-description">
-                    The amount available after income tax, Medicare and HELP.
-                </div>
+        <div>
+            <h2>Income</h2>
+
+            <div class="section-description">
+                Add each source of income separately.
+                Full-time salaries can be entered annually;
+                casual and part-time work can be entered hourly.
             </div>
-
         </div>
 
-        <div class="summary-grid">
+        <button
+            type="button"
+            class="add-button"
+            id="addIncomeButton">
 
-            <div class="summary-card">
-                <div class="label">Annual</div>
-                <div class="value" id="afterTaxAnnual">$0.00</div>
-            </div>
+            + Add income source
 
-            <div class="summary-card">
-                <div class="label">Monthly</div>
-                <div class="value" id="afterTaxMonthly">$0.00</div>
-            </div>
+        </button>
 
-            <div class="summary-card">
-                <div class="label">Weekly</div>
-                <div class="value" id="afterTaxWeekly">$0.00</div>
-            </div>
-
-            <div class="summary-card">
-                <div class="label">Hourly</div>
-                <div class="value" id="afterTaxHourly">$0.00</div>
-            </div>
-
-        </div>
-
-    </section>
+    </div>
 
 
-    <!-- EXPENSES -->
-    <section class="section">
+    <div style="overflow-x:auto;">
 
-        <div class="section-header">
+        <table>
 
-            <div>
-                <h2>Living Expenses</h2>
+            <thead>
 
-                <div class="section-description">
-                    These are cash expenses, not automatically tax deductions.
-                </div>
-            </div>
+                <tr>
 
-            <button
-                type="button"
-                class="add-button"
-                id="addExpenseButton">
-                + Add expense
-            </button>
+                    <th>
+                        Source
+                    </th>
 
-        </div>
+                    <th>
+                        Employment type
+                    </th>
 
-        <div class="budget-grid">
+                    <th>
+                        Pay input
+                    </th>
 
-            <div id="expensesColumn1"></div>
+                    <th>
+                        Hours / week
+                    </th>
 
-            <div id="expensesColumn2"></div>
+                    <th>
+                        Annual
+                    </th>
 
-        </div>
+                    <th>
+                        Monthly
+                    </th>
 
-    </section>
+                    <th>
+                        Fortnightly
+                    </th>
+
+                    <th>
+                        Weekly
+                    </th>
+
+                    <th></th>
+
+                </tr>
+
+            </thead>
 
 
-    <!-- MONEY AVAILABLE -->
-    <section class="section">
+            <tbody id="incomeBody">
+                <!-- Generated by JavaScript -->
+            </tbody>
 
-        <div class="available">
 
-            <h3>Money Available After Expenses</h3>
+            <tfoot>
 
-            <div class="big-number" id="moneyAvailable">
-                $0.00 / week
-            </div>
+                <tr class="total-row">
 
-            <p>
-                This is your estimated money available for savings,
-                additional investments or discretionary spending.
-            </p>
+                    <td>
+                        Total income
+                    </td>
 
-            <div class="status" id="budgetStatus">
-                Add your income and expenses to begin.
+                    <td>
+                        —
+                    </td>
+
+                    <td>
+                        —
+                    </td>
+
+                    <td>
+                        —
+                    </td>
+
+                    <td id="totalAnnualIncome">
+                        $0.00
+                    </td>
+
+                    <td id="totalMonthlyIncome">
+                        $0.00
+                    </td>
+
+                    <td id="totalFortnightlyIncome">
+                        $0.00
+                    </td>
+
+                    <td id="totalWeeklyIncome">
+                        $0.00
+                    </td>
+
+                    <td></td>
+
+                </tr>
+
+            </tfoot>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+<!-- ========================================================
+     TAX
+     ======================================================== -->
+
+<section class="section">
+
+    <div class="section-header">
+
+        <div>
+
+            <h2>
+                Tax & Government Repayments
+            </h2>
+
+            <div class="section-description">
+                Automatically calculated from your taxable income.
             </div>
 
         </div>
 
-    </section>
+    </div>
 
 
-    <!-- BUDGET ALLOCATION -->
-    <section class="section">
+    <div class="tax-grid">
 
-        <div class="section-header">
+        <div>
 
-            <div>
-                <h2>Budget Allocation</h2>
+            <div class="tax-row">
 
-                <div class="section-description">
-                    Decide where your remaining money goes.
-                </div>
+                <span>
+                    Total income
+                </span>
+
+                <strong id="taxTotalIncome">
+                    $0.00
+                </strong>
+
+            </div>
+
+
+            <div class="tax-row">
+
+                <span>
+                    Tax deductions
+                </span>
+
+                <strong>
+                    $0.00
+                </strong>
+
+            </div>
+
+
+            <div class="tax-row">
+
+                <span>
+                    Taxable income
+                </span>
+
+                <strong id="taxableIncome">
+                    $0.00
+                </strong>
+
             </div>
 
         </div>
 
-        <div class="budget-grid">
 
-            <div id="allocationColumn1"></div>
+        <div>
 
-            <div id="allocationColumn2"></div>
+            <div class="tax-row">
+
+                <span>
+                    Income tax
+                </span>
+
+                <strong id="incomeTax">
+                    $0.00
+                </strong>
+
+            </div>
+
+
+            <div class="tax-row">
+
+                <span>
+                    Medicare levy
+                </span>
+
+                <strong id="medicareLevy">
+                    $0.00
+                </strong>
+
+            </div>
+
+
+            <div class="tax-row">
+
+                <span>
+                    Medicare levy surcharge
+                </span>
+
+                <strong id="medicareSurcharge">
+                    $0.00
+                </strong>
+
+            </div>
+
+
+            <div class="tax-row">
+
+                <span>
+                    HELP repayment
+                </span>
+
+                <strong id="helpRepayment">
+                    $0.00
+                </strong>
+
+            </div>
+
+
+            <div class="tax-row total">
+
+                <span>
+                    Total government deductions
+                </span>
+
+                <strong id="totalGovernmentDeductions">
+                    $0.00
+                </strong>
+
+            </div>
 
         </div>
 
-    </section>
+    </div>
+
+
+    <!-- ====================================================
+         TAX INSIGHT
+         ==================================================== -->
+
+    <div class="insight">
+
+        <h3>
+            💡 Tax & Repayment Insight
+        </h3>
+
+
+        <div class="insight-row">
+
+            <span class="insight-label">
+                Income tax bracket
+            </span>
+
+            <span
+                class="insight-value"
+                id="taxBracketInsight">
+
+                No income entered
+
+            </span>
+
+        </div>
+
+
+        <div class="insight-row">
+
+            <span class="insight-label">
+                Marginal income-tax rate
+            </span>
+
+            <span
+                class="insight-value"
+                id="taxRateInsight">
+
+                —
+
+            </span>
+
+        </div>
+
+
+        <div class="insight-row">
+
+            <span class="insight-label">
+                Medicare levy
+            </span>
+
+            <span
+                class="insight-value"
+                id="medicareInsight">
+
+                —
+
+            </span>
+
+        </div>
+
+
+        <div class="insight-row">
+
+            <span class="insight-label">
+                Medicare levy surcharge
+            </span>
+
+            <span
+                class="insight-value"
+                id="mlsInsight">
+
+                —
+
+            </span>
+
+        </div>
+
+
+        <div class="insight-row">
+
+            <span class="insight-label">
+                HELP repayment bracket
+            </span>
+
+            <span
+                class="insight-value"
+                id="helpBracketInsight">
+
+                —
+
+            </span>
+
+        </div>
+
+
+        <div class="insight-row">
+
+            <span class="insight-label">
+                HELP repayment rate
+            </span>
+
+            <span
+                class="insight-value"
+                id="helpRateInsight">
+
+                —
+
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ========================================================
+     AFTER TAX
+     ======================================================== -->
+
+<section class="section">
+
+    <div class="section-header">
+
+        <div>
+
+            <h2>
+                After-Tax Income
+            </h2>
+
+            <div class="section-description">
+                Amount available after income tax, Medicare and HELP.
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="summary-grid">
+
+        <div class="summary-card">
+
+            <div class="label">
+                Annual
+            </div>
+
+            <div
+                class="value"
+                id="afterTaxAnnual">
+
+                $0.00
+
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="label">
+                Monthly
+            </div>
+
+            <div
+                class="value"
+                id="afterTaxMonthly">
+
+                $0.00
+
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="label">
+                Weekly
+            </div>
+
+            <div
+                class="value"
+                id="afterTaxWeekly">
+
+                $0.00
+
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="label">
+                Hourly
+            </div>
+
+            <div
+                class="value"
+                id="afterTaxHourly">
+
+                $0.00
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ========================================================
+     LIVING EXPENSES
+     ======================================================== -->
+
+<section class="section">
+
+    <div class="section-header">
+
+        <div>
+
+            <h2>
+                Living Expenses
+            </h2>
+
+            <div class="section-description">
+                Add your expenses and choose how frequently you pay them.
+            </div>
+
+        </div>
+
+
+        <button
+            type="button"
+            class="add-button"
+            id="addExpenseButton">
+
+            + Add expense
+
+        </button>
+
+    </div>
+
+
+    <div class="budget-grid">
+
+        <div id="expensesColumn1"></div>
+
+        <div id="expensesColumn2"></div>
+
+    </div>
+
+</section>
+
+
+<!-- ========================================================
+     MONEY AVAILABLE
+     ======================================================== -->
+
+<section class="section">
+
+    <div class="available">
+
+        <h3>
+            Money Available After Expenses
+        </h3>
+
+
+        <div
+            class="big-number"
+            id="moneyAvailable">
+
+            $0.00 / week
+
+        </div>
+
+
+        <p>
+            This is your estimated money available for savings,
+            additional investments or discretionary spending.
+        </p>
+
+
+        <div
+            class="status"
+            id="budgetStatus">
+
+            Add your income and expenses to begin.
+
+        </div>
+
+    </div>
+
+</section>
+```
 
 </div>
-
 
 <footer>
     Personal Finance Planner AU · For personal and informational use only.
 </footer>
 
-
 <script>
 
-    /*
-     * ============================================================
-     * PERSONAL FINANCE PLANNER
-     * ============================================================
-     *
-     * IMPORTANT:
-     * There are intentionally NO personal income or expense values
-     * stored in this file.
-     *
-     * The page starts blank.
-     *
-     * ============================================================
-     */
+/* ================================================================
+   PERSONAL FINANCE PLANNER AU
+   ================================================================
+
+   IMPORTANT:
+   No personal income or expense information is stored here.
+
+   The calculator starts completely blank.
+
+   ================================================================ */
 
 
-    // ------------------------------------------------------------
-    // CONSTANTS
-    // ------------------------------------------------------------
+/* ================================================================
+   CONSTANTS
+   ================================================================ */
 
-    const WEEKS_PER_YEAR = 52;
-    const MONTHS_PER_YEAR = 12;
-    const FORTNIGHTS_PER_YEAR = 26;
-
-
-    // ------------------------------------------------------------
-    // DATA
-    // ------------------------------------------------------------
-
-    let incomeSources = [];
-
-    let expenses = [];
-
-    let allocations = [];
+const WEEKS_PER_YEAR = 52;
+const MONTHS_PER_YEAR = 12;
+const FORTNIGHTS_PER_YEAR = 26;
 
 
-    // ------------------------------------------------------------
-    // FORMATTERS
-    // ------------------------------------------------------------
+/* ================================================================
+   DATA
+   ================================================================ */
 
-    function currency(value) {
+let incomeSources = [];
 
-        if (!Number.isFinite(value)) {
-            value = 0;
-        }
+let expenses = [];
 
-        return value.toLocaleString("en-AU", {
-            style: "currency",
-            currency: "AUD",
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
-        });
+
+/* ================================================================
+   BASIC HELPERS
+   ================================================================ */
+
+function number(value) {
+
+    const parsed = parseFloat(value);
+
+    return Number.isFinite(parsed)
+        ? parsed
+        : 0;
+}
+
+
+function currency(value) {
+
+    if (!Number.isFinite(value)) {
+        value = 0;
     }
 
+    return value.toLocaleString("en-AU", {
 
-    function number(value) {
+        style: "currency",
 
-        const parsed = parseFloat(value);
+        currency: "AUD",
 
-        return Number.isFinite(parsed) ? parsed : 0;
-    }
+        minimumFractionDigits: 2,
 
+        maximumFractionDigits: 2
 
-    // ------------------------------------------------------------
-    // INCOME
-    // ------------------------------------------------------------
-
-    function addIncomeSource() {
-
-        incomeSources.push({
-            id: Date.now() + Math.random(),
-            source: "",
-            hourlyRate: 0,
-            hoursPerWeek: 0
-        });
-
-        renderIncome();
-
-        calculateEverything();
-    }
+    });
+}
 
 
-    function deleteIncomeSource(id) {
+/* ================================================================
+   INCOME
+   ================================================================ */
 
-        incomeSources = incomeSources.filter(
+/*
+   Employment types:
+
+   full-time
+       → user enters annual salary
+
+   part-time / casual
+       → user enters hourly rate + hours per week
+
+   The calculator converts everything to annual income.
+*/
+
+
+function addIncomeSource() {
+
+    incomeSources.push({
+
+        id: Date.now() + Math.random(),
+
+        source: "",
+
+        employmentType: "full-time",
+
+        amount: 0,
+
+        hoursPerWeek: 0
+
+    });
+
+
+    renderIncome();
+
+    calculateEverything();
+}
+
+
+function deleteIncomeSource(id) {
+
+    incomeSources =
+        incomeSources.filter(
             income => income.id !== id
         );
 
-        renderIncome();
 
-        calculateEverything();
+    renderIncome();
+
+    calculateEverything();
+}
+
+
+function calculateIncome(income) {
+
+    let annual = 0;
+
+
+    if (income.employmentType === "full-time") {
+
+        annual = number(income.amount);
+
+    } else {
+
+        const hourlyRate =
+            number(income.amount);
+
+        const hours =
+            number(income.hoursPerWeek);
+
+        annual =
+            hourlyRate *
+            hours *
+            WEEKS_PER_YEAR;
     }
 
 
-    function calculateIncome(income) {
+    return {
 
-        const hourlyRate = number(income.hourlyRate);
+        annual: annual,
 
-        const hoursPerWeek = number(income.hoursPerWeek);
+        monthly:
+            annual / MONTHS_PER_YEAR,
 
-        const weekly = hourlyRate * hoursPerWeek;
+        fortnightly:
+            annual / FORTNIGHTS_PER_YEAR,
 
-        const annual = weekly * WEEKS_PER_YEAR;
+        weekly:
+            annual / WEEKS_PER_YEAR
 
-        const monthly = annual / MONTHS_PER_YEAR;
-
-        const fortnightly = annual / FORTNIGHTS_PER_YEAR;
-
-        return {
-            weekly,
-            annual,
-            monthly,
-            fortnightly
-        };
-    }
+    };
+}
 
 
-    function renderIncome() {
+/*
+   IMPORTANT:
 
-        const body = document.getElementById("incomeBody");
+   This function creates the row only when the row itself needs
+   to be rebuilt.
 
-        body.innerHTML = "";
+   Typing into the Source field DOES NOT call renderIncome().
+   This fixes the previous one-character-at-a-time problem.
+*/
 
 
-        incomeSources.forEach(income => {
+function renderIncome() {
 
-            const calculated = calculateIncome(income);
+    const body =
+        document.getElementById("incomeBody");
 
-            const row = document.createElement("tr");
 
-            row.innerHTML = `
+    body.innerHTML = "";
 
-                <td>
-                    <input
-                        class="source-input"
-                        type="text"
-                        placeholder="e.g. Specsavers"
-                        value="${escapeHtml(income.source)}"
-                        data-id="${income.id}"
-                        data-field="source">
-                </td>
 
-                <td>
-                    <input
-                        type="number"
-                        min="0"
-                        step="0.01"
-                        placeholder="0.00"
-                        value="${income.hourlyRate || ""}"
-                        data-id="${income.id}"
-                        data-field="hourlyRate">
-                </td>
+    incomeSources.forEach(income => {
 
-                <td>
-                    <input
+        const calculated =
+            calculateIncome(income);
+
+
+        const row =
+            document.createElement("tr");
+
+
+        row.dataset.id =
+            income.id;
+
+
+        row.innerHTML = `
+
+            <td>
+
+                <input
+                    class="source-input"
+                    type="text"
+                    placeholder="e.g. CBA"
+                    value="${escapeHtml(income.source)}"
+                    data-field="source">
+
+            </td>
+
+
+            <td>
+
+                <select
+                    class="employment-select"
+                    data-field="employmentType">
+
+                    <option
+                        value="full-time"
+                        ${income.employmentType === "full-time"
+                            ? "selected"
+                            : ""}>
+
+                        Full-time
+
+                    </option>
+
+                    <option
+                        value="part-time"
+                        ${income.employmentType === "part-time"
+                            ? "selected"
+                            : ""}>
+
+                        Part-time
+
+                    </option>
+
+                    <option
+                        value="casual"
+                        ${income.employmentType === "casual"
+                            ? "selected"
+                            : ""}>
+
+                        Casual
+
+                    </option>
+
+                </select>
+
+            </td>
+
+
+            <td>
+
+                <input
+                    class="amount-input"
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    placeholder="${income.employmentType === "full-time"
+                        ? "Annual salary"
+                        : "Hourly rate"}"
+                    value="${income.amount || ""}"
+                    data-field="amount">
+
+            </td>
+
+
+            <td>
+
+                ${
+                    income.employmentType === "full-time"
+
+                    ?
+
+                    `<span>—</span>`
+
+                    :
+
+                    `<input
                         class="hours-input"
                         type="number"
                         min="0"
                         step="0.1"
-                        placeholder="0"
+                        placeholder="Hours"
                         value="${income.hoursPerWeek || ""}"
-                        data-id="${income.id}"
-                        data-field="hoursPerWeek">
-                </td>
+                        data-field="hoursPerWeek">`
+                }
 
-                <td class="calculated">
-                    ${currency(calculated.annual)}
-                </td>
-
-                <td class="calculated">
-                    ${currency(calculated.monthly)}
-                </td>
-
-                <td class="calculated">
-                    ${currency(calculated.fortnightly)}
-                </td>
-
-                <td class="calculated">
-                    ${currency(calculated.weekly)}
-                </td>
-
-                <td>
-                    <button
-                        type="button"
-                        class="delete-button"
-                        data-delete-income="${income.id}">
-                        ×
-                    </button>
-                </td>
-            `;
-
-            body.appendChild(row);
-        });
+            </td>
 
 
-        attachIncomeListeners();
-    }
+            <td class="calculated">
+                ${currency(calculated.annual)}
+            </td>
 
 
-    function attachIncomeListeners() {
+            <td class="calculated">
+                ${currency(calculated.monthly)}
+            </td>
 
-        document
-            .querySelectorAll("#incomeBody input")
-            .forEach(input => {
 
-                input.addEventListener("input", function () {
+            <td class="calculated">
+                ${currency(calculated.fortnightly)}
+            </td>
 
-                    const id = Number(this.dataset.id);
 
-                    const field = this.dataset.field;
+            <td class="calculated">
+                ${currency(calculated.weekly)}
+            </td>
 
-                    const income = incomeSources.find(
-                        item => item.id === id
-                    );
 
-                    if (!income) return;
+            <td>
 
-                    if (field === "source") {
+                <button
+                    type="button"
+                    class="delete-button"
+                    data-delete-income>
 
-                        income.source = this.value;
+                    ×
 
-                    } else {
+                </button>
 
-                        income[field] = number(this.value);
+            </td>
+
+        `;
+
+
+        body.appendChild(row);
+
+    });
+
+
+    attachIncomeListeners();
+}
+
+
+/*
+   Update a single row without rebuilding the whole table.
+
+   This is the key fix for the typing issue.
+*/
+
+
+function updateIncomeRow(id) {
+
+    const income =
+        incomeSources.find(
+            item => item.id === id
+        );
+
+
+    if (!income) return;
+
+
+    const row =
+        document.querySelector(
+            `#incomeBody tr[data-id="${id}"]`
+        );
+
+
+    if (!row) return;
+
+
+    const calculated =
+        calculateIncome(income);
+
+
+    const calculatedCells =
+        row.querySelectorAll(".calculated");
+
+
+    calculatedCells[0].textContent =
+        currency(calculated.annual);
+
+
+    calculatedCells[1].textContent =
+        currency(calculated.monthly);
+
+
+    calculatedCells[2].textContent =
+        currency(calculated.fortnightly);
+
+
+    calculatedCells[3].textContent =
+        currency(calculated.weekly);
+}
+
+
+function attachIncomeListeners() {
+
+    document
+        .querySelectorAll("#incomeBody tr")
+        .forEach(row => {
+
+            const id =
+                Number(row.dataset.id);
+
+
+            const sourceInput =
+                row.querySelector(
+                    '[data-field="source"]'
+                );
+
+
+            if (sourceInput) {
+
+                sourceInput.addEventListener(
+                    "input",
+                    function() {
+
+                        const income =
+                            incomeSources.find(
+                                item =>
+                                    item.id === id
+                            );
+
+
+                        if (!income) return;
+
+
+                        /*
+                           Do NOT re-render here.
+                           This allows continuous typing.
+                        */
+
+                        income.source =
+                            this.value;
 
                     }
-
-                    renderIncome();
-
-                    calculateEverything();
-                });
-            });
+                );
+            }
 
 
-        document
-            .querySelectorAll("[data-delete-income]")
-            .forEach(button => {
-
-                button.addEventListener("click", function () {
-
-                    deleteIncomeSource(
-                        Number(this.dataset.deleteIncome)
-                    );
-                });
-            });
-    }
+            const typeSelect =
+                row.querySelector(
+                    '[data-field="employmentType"]'
+                );
 
 
-    // ------------------------------------------------------------
-    // EXPENSES
-    // ------------------------------------------------------------
+            if (typeSelect) {
 
-    function addExpense() {
+                typeSelect.addEventListener(
+                    "change",
+                    function() {
 
-        expenses.push({
-            id: Date.now() + Math.random(),
-            name: "",
-            amount: 0,
-            frequency: "weekly"
+                        const income =
+                            incomeSources.find(
+                                item =>
+                                    item.id === id
+                            );
+
+
+                        if (!income) return;
+
+
+                        income.employmentType =
+                            this.value;
+
+
+                        income.amount = 0;
+
+                        income.hoursPerWeek = 0;
+
+
+                        renderIncome();
+
+                        calculateEverything();
+
+                    }
+                );
+            }
+
+
+            const amountInput =
+                row.querySelector(
+                    '[data-field="amount"]'
+                );
+
+
+            if (amountInput) {
+
+                amountInput.addEventListener(
+                    "input",
+                    function() {
+
+                        const income =
+                            incomeSources.find(
+                                item =>
+                                    item.id === id
+                            );
+
+
+                        if (!income) return;
+
+
+                        income.amount =
+                            number(this.value);
+
+
+                        updateIncomeRow(id);
+
+                        calculateEverything();
+
+                    }
+                );
+            }
+
+
+            const hoursInput =
+                row.querySelector(
+                    '[data-field="hoursPerWeek"]'
+                );
+
+
+            if (hoursInput) {
+
+                hoursInput.addEventListener(
+                    "input",
+                    function() {
+
+                        const income =
+                            incomeSources.find(
+                                item =>
+                                    item.id === id
+                            );
+
+
+                        if (!income) return;
+
+
+                        income.hoursPerWeek =
+                            number(this.value);
+
+
+                        updateIncomeRow(id);
+
+                        calculateEverything();
+
+                    }
+                );
+            }
+
+
+            const deleteButton =
+                row.querySelector(
+                    "[data-delete-income]"
+                );
+
+
+            if (deleteButton) {
+
+                deleteButton.addEventListener(
+                    "click",
+                    function() {
+
+                        deleteIncomeSource(id);
+
+                    }
+                );
+            }
+
         });
-
-        renderExpenses();
-
-        calculateEverything();
-    }
+}
 
 
-    function deleteExpense(id) {
+/* ================================================================
+   EXPENSES
+   ================================================================ */
 
-        expenses = expenses.filter(
+
+function addExpense() {
+
+    expenses.push({
+
+        id: Date.now() + Math.random(),
+
+        name: "",
+
+        amount: 0,
+
+        frequency: "weekly"
+
+    });
+
+
+    renderExpenses();
+
+    calculateEverything();
+}
+
+
+function deleteExpense(id) {
+
+    expenses =
+        expenses.filter(
             expense => expense.id !== id
         );
 
-        renderExpenses();
 
-        calculateEverything();
+    renderExpenses();
+
+    calculateEverything();
+}
+
+
+function expenseToWeekly(expense) {
+
+    const amount =
+        number(expense.amount);
+
+
+    switch (expense.frequency) {
+
+        case "weekly":
+            return amount;
+
+        case "fortnightly":
+            return amount / 2;
+
+        case "monthly":
+            return amount * 12 / 52;
+
+        case "annual":
+            return amount / 52;
+
+        default:
+            return 0;
     }
+}
 
 
-    function expenseToWeekly(expense) {
+function renderExpenses() {
 
-        const amount = number(expense.amount);
-
-        switch (expense.frequency) {
-
-            case "weekly":
-                return amount;
-
-            case "fortnightly":
-                return amount / 2;
-
-            case "monthly":
-                return amount * 12 / 52;
-
-            case "annual":
-                return amount / 52;
-
-            default:
-                return 0;
-        }
-    }
+    const column1 =
+        document.getElementById(
+            "expensesColumn1"
+        );
 
 
-    function renderExpenses() {
-
-        const column1 = document.getElementById("expensesColumn1");
-
-        const column2 = document.getElementById("expensesColumn2");
-
-        column1.innerHTML = "";
-
-        column2.innerHTML = "";
+    const column2 =
+        document.getElementById(
+            "expensesColumn2"
+        );
 
 
-        expenses.forEach((expense, index) => {
+    column1.innerHTML = "";
 
-            const weekly = expenseToWeekly(expense);
-
-            const annual = weekly * WEEKS_PER_YEAR;
-
-            const monthly = annual / MONTHS_PER_YEAR;
+    column2.innerHTML = "";
 
 
-            const row = document.createElement("div");
+    expenses.forEach(
+        (expense, index) => {
 
-            row.className = "budget-row";
+            const row =
+                document.createElement("div");
+
+
+            row.className =
+                "expense-row";
+
+
+            row.dataset.id =
+                expense.id;
+
 
             row.innerHTML = `
 
-                <div>
+                <input
+                    type="text"
+                    placeholder="Expense name"
+                    value="${escapeHtml(expense.name)}"
+                    data-field="name">
 
-                    <input
-                        type="text"
-                        placeholder="Expense name"
-                        value="${escapeHtml(expense.name)}"
-                        data-expense-id="${expense.id}"
-                        data-expense-field="name">
 
-                </div>
+                <input
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    placeholder="Amount"
+                    value="${expense.amount || ""}"
+                    data-field="amount">
 
-                <div>
 
-                    <input
-                        type="number"
-                        min="0"
-                        step="0.01"
-                        placeholder="0.00"
-                        value="${expense.amount || ""}"
-                        data-expense-id="${expense.id}"
-                        data-expense-field="amount">
+                <select data-field="frequency">
 
-                    <select
-                        data-expense-id="${expense.id}"
-                        data-expense-field="frequency">
+                    <option
+                        value="weekly"
+                        ${expense.frequency === "weekly"
+                            ? "selected"
+                            : ""}>
 
-                        <option value="weekly"
-                            ${expense.frequency === "weekly" ? "selected" : ""}>
-                            Weekly
-                        </option>
+                        Weekly
 
-                        <option value="fortnightly"
-                            ${expense.frequency === "fortnightly" ? "selected" : ""}>
-                            Fortnightly
-                        </option>
+                    </option>
 
-                        <option value="monthly"
-                            ${expense.frequency === "monthly" ? "selected" : ""}>
-                            Monthly
-                        </option>
+                    <option
+                        value="fortnightly"
+                        ${expense.frequency === "fortnightly"
+                            ? "selected"
+                            : ""}>
 
-                        <option value="annual"
-                            ${expense.frequency === "annual" ? "selected" : ""}>
-                            Annual
-                        </option>
+                        Fortnightly
 
-                    </select>
+                    </option>
 
-                </div>
+                    <option
+                        value="monthly"
+                        ${expense.frequency === "monthly"
+                            ? "selected"
+                            : ""}>
 
-                <div class="calculated">
-                    ${currency(weekly)} / week
-                </div>
+                        Monthly
 
-                <div>
-                    <button
-                        type="button"
-                        class="delete-button"
-                        data-delete-expense="${expense.id}">
-                        ×
-                    </button>
-                </div>
+                    </option>
+
+                    <option
+                        value="annual"
+                        ${expense.frequency === "annual"
+                            ? "selected"
+                            : ""}>
+
+                        Annual
+
+                    </option>
+
+                </select>
+
+
+                <button
+                    type="button"
+                    class="delete-button"
+                    data-delete-expense>
+
+                    ×
+
+                </button>
 
             `;
 
@@ -1020,704 +1754,1217 @@
 
             }
 
-        });
+        }
+    );
 
 
-        renderExpenseTotal();
+    renderExpenseTotal();
 
-        attachExpenseListeners();
-    }
+    attachExpenseListeners();
+}
 
 
-    function renderExpenseTotal() {
+function renderExpenseTotal() {
 
-        const totalWeekly = expenses.reduce(
+    const totalWeekly =
+        expenses.reduce(
             (total, expense) => {
-                return total + expenseToWeekly(expense);
+
+                return total +
+                    expenseToWeekly(expense);
+
             },
             0
         );
 
 
-        const total = document.createElement("div");
-
-        total.className = "budget-row";
-
-        total.innerHTML = `
-
-            <strong>Total expenses</strong>
-
-            <strong>${currency(totalWeekly)}</strong>
-
-            <strong>/ week</strong>
-
-            <span></span>
-
-        `;
+    const total =
+        document.createElement("div");
 
 
-        document
-            .getElementById("expensesColumn2")
-            .appendChild(total);
+    total.className =
+        "expense-row";
+
+
+    total.innerHTML = `
+
+        <strong>
+            Total expenses
+        </strong>
+
+        <strong>
+            ${currency(totalWeekly)}
+        </strong>
+
+        <strong>
+            / week
+        </strong>
+
+        <span></span>
+
+    `;
+
+
+    document
+        .getElementById(
+            "expensesColumn2"
+        )
+        .appendChild(total);
+}
+
+
+function attachExpenseListeners() {
+
+    document
+        .querySelectorAll(
+            "#expensesColumn1 .expense-row, #expensesColumn2 .expense-row"
+        )
+        .forEach(row => {
+
+            if (!row.dataset.id) {
+                return;
+            }
+
+
+            const id =
+                Number(row.dataset.id);
+
+
+            const expense =
+                expenses.find(
+                    item => item.id === id
+                );
+
+
+            if (!expense) return;
+
+
+            const nameInput =
+                row.querySelector(
+                    '[data-field="name"]'
+                );
+
+
+            const amountInput =
+                row.querySelector(
+                    '[data-field="amount"]'
+                );
+
+
+            const frequencySelect =
+                row.querySelector(
+                    '[data-field="frequency"]'
+                );
+
+
+            /*
+               Again, text inputs do not trigger a full render
+               on every keystroke.
+            */
+
+            nameInput.addEventListener(
+                "input",
+                function() {
+
+                    expense.name =
+                        this.value;
+
+                }
+            );
+
+
+            amountInput.addEventListener(
+                "input",
+                function() {
+
+                    expense.amount =
+                        number(this.value);
+
+                    renderExpenses();
+
+                    calculateEverything();
+
+                }
+            );
+
+
+            frequencySelect.addEventListener(
+                "change",
+                function() {
+
+                    expense.frequency =
+                        this.value;
+
+                    renderExpenses();
+
+                    calculateEverything();
+
+                }
+            );
+
+
+            const deleteButton =
+                row.querySelector(
+                    "[data-delete-expense]"
+                );
+
+
+            deleteButton.addEventListener(
+                "click",
+                function() {
+
+                    deleteExpense(id);
+
+                }
+            );
+
+        });
+}
+
+
+/* ================================================================
+   TAX RULES
+   ================================================================ */
+
+
+/*
+   2026–27 resident income tax rates.
+
+   These are marginal rates, not an average tax rate.
+*/
+
+
+const TAX_RULES_2026_27 = [
+
+    {
+        min: 0,
+        max: 18200,
+        rate: 0,
+        label: "$0–$18,200"
+    },
+
+    {
+        min: 18201,
+        max: 45000,
+        rate: 0.15,
+        label: "$18,201–$45,000"
+    },
+
+    {
+        min: 45001,
+        max: 135000,
+        rate: 0.30,
+        label: "$45,001–$135,000"
+    },
+
+    {
+        min: 135001,
+        max: 190000,
+        rate: 0.37,
+        label: "$135,001–$190,000"
+    },
+
+    {
+        min: 190001,
+        max: Infinity,
+        rate: 0.45,
+        label: "Above $190,000"
     }
 
-
-    function attachExpenseListeners() {
-
-        document
-            .querySelectorAll(
-                "[data-expense-id]"
-            )
-            .forEach(input => {
-
-                input.addEventListener("input", function () {
-
-                    updateExpenseFromInput(this);
-
-                });
-
-                input.addEventListener("change", function () {
-
-                    updateExpenseFromInput(this);
-
-                });
-
-            });
+];
 
 
-        document
-            .querySelectorAll("[data-delete-expense]")
-            .forEach(button => {
+/*
+   2025–26 rates.
 
-                button.addEventListener("click", function () {
+   The 2025–26 income tax rates use the pre-2026-27
+   resident rate structure.
+*/
 
-                    deleteExpense(
-                        Number(this.dataset.deleteExpense)
-                    );
 
-                });
+const TAX_RULES_2025_26 = [
 
-            });
+    {
+        min: 0,
+        max: 18200,
+        rate: 0,
+        label: "$0–$18,200"
+    },
+
+    {
+        min: 18201,
+        max: 45000,
+        rate: 0.16,
+        label: "$18,201–$45,000"
+    },
+
+    {
+        min: 45001,
+        max: 135000,
+        rate: 0.30,
+        label: "$45,001–$135,000"
+    },
+
+    {
+        min: 135001,
+        max: 190000,
+        rate: 0.37,
+        label: "$135,001–$190,000"
+    },
+
+    {
+        min: 190001,
+        max: Infinity,
+        rate: 0.45,
+        label: "Above $190,000"
     }
 
-
-    function updateExpenseFromInput(input) {
-
-        const id = Number(input.dataset.expenseId);
-
-        const field = input.dataset.expenseField;
-
-        const expense = expenses.find(
-            item => item.id === id
-        );
-
-        if (!expense) return;
+];
 
 
-        if (field === "name") {
+/*
+   HELP 2025–26 / 2026–27.
 
-            expense.name = input.value;
+   The current HELP system is marginal:
+   only the income above the threshold is subject
+   to the relevant repayment rate.
 
-        } else if (field === "amount") {
+   The exact annual thresholds are separated here so
+   the tax engine can be updated independently.
+*/
 
-            expense.amount = number(input.value);
 
-        } else if (field === "frequency") {
+const HELP_RULES = [
 
-            expense.frequency = input.value;
+    {
+        min: 0,
+        max: 67000,
+        rate: 0,
+        label: "Below $67,000"
+    },
+
+    {
+        min: 67000.01,
+        max: 76000,
+        rate: 0.15,
+        label: "$67,001–$76,000"
+    },
+
+    {
+        min: 76000.01,
+        max: 87000,
+        rate: 0.17,
+        label: "$76,001–$87,000"
+    },
+
+    {
+        min: 87000.01,
+        max: 100000,
+        rate: 0.19,
+        label: "$87,001–$100,000"
+    },
+
+    {
+        min: 100000.01,
+        max: 116000,
+        rate: 0.21,
+        label: "$100,001–$116,000"
+    },
+
+    {
+        min: 116000.01,
+        max: 135000,
+        rate: 0.24,
+        label: "$116,001–$135,000"
+    },
+
+    {
+        min: 135000.01,
+        max: 157000,
+        rate: 0.27,
+        label: "$135,001–$157,000"
+    },
+
+    {
+        min: 157000.01,
+        max: 180000,
+        rate: 0.30,
+        label: "$157,001–$180,000"
+    },
+
+    {
+        min: 180000.01,
+        max: Infinity,
+        rate: 0.10,
+        label: "$180,001+"
+    }
+
+];
+
+
+/*
+   Find tax bracket.
+*/
+
+
+function getTaxBracket(income) {
+
+    const year =
+        document.getElementById(
+            "taxYear"
+        ).value;
+
+
+    const rules =
+        year === "2025-26"
+            ? TAX_RULES_2025_26
+            : TAX_RULES_2026_27;
+
+
+    return rules.find(
+        bracket =>
+            income >= bracket.min &&
+            income <= bracket.max
+    );
+}
+
+
+/*
+   Calculate progressive income tax.
+*/
+
+
+function calculateIncomeTax(income) {
+
+    const year =
+        document.getElementById(
+            "taxYear"
+        ).value;
+
+
+    const rules =
+        year === "2025-26"
+            ? TAX_RULES_2025_26
+            : TAX_RULES_2026_27;
+
+
+    let tax = 0;
+
+    let previousThreshold = 0;
+
+
+    for (const bracket of rules) {
+
+        if (income <= previousThreshold) {
+            break;
+        }
+
+
+        const taxableAmount =
+            Math.min(
+                income,
+                bracket.max
+            ) - previousThreshold;
+
+
+        if (taxableAmount > 0) {
+
+            tax +=
+                taxableAmount *
+                bracket.rate;
 
         }
 
 
-        renderExpenses();
+        previousThreshold =
+            bracket.max;
 
-        calculateEverything();
+
+        if (income <= bracket.max) {
+            break;
+        }
+
     }
 
 
-    // ------------------------------------------------------------
-    // TAX
-    // ------------------------------------------------------------
+    return tax;
+}
+
+
+/* ================================================================
+   MEDICARE
+   ================================================================ */
+
+
+/*
+   Basic Medicare levy.
+
+   For now we display the standard 2% rate.
+
+   Low-income reductions and phase-in thresholds can be
+   added as a dedicated rule set later.
+*/
+
+
+function calculateMedicareLevy(income) {
+
+    if (income <= 0) {
+        return 0;
+    }
+
+    return income * 0.02;
+}
+
+
+/*
+   Medicare Levy Surcharge.
+
+   This currently distinguishes the standard rates based
+   on income and hospital cover.
+
+   The exact family/single threshold rules can be expanded
+   when we build the full household/family settings.
+*/
+
+
+function calculateMedicareSurcharge(income) {
+
+    const hospitalCover =
+        document.getElementById(
+            "privateHospital"
+        ).value;
+
+
+    if (
+        hospitalCover === "yes" ||
+        income <= 0
+    ) {
+        return {
+            amount: 0,
+            rate: 0,
+            label: "No surcharge"
+        };
+    }
+
 
     /*
-     * This is deliberately kept as a separate function.
-     *
-     * Once the basic planner is confirmed to work, we can replace
-     * this with the exact Australian tax brackets, Medicare rules,
-     * HELP repayment thresholds and MLS rules for each tax year.
-     */
+       These are the standard single-person
+       MLS bands used for the planner.
 
-    function calculateIncomeTax(taxableIncome) {
+       We will later make these year-specific
+       and account for family status.
+    */
 
-        const income = Math.max(0, taxableIncome);
 
-        /*
-         * Placeholder Australian progressive tax calculation.
-         *
-         * This is NOT yet the final tax engine.
-         */
+    if (income <= 101000) {
 
-        if (income <= 18200) {
-            return 0;
-        }
+        return {
+            amount: 0,
+            rate: 0,
+            label: "No surcharge"
+        };
 
-        if (income <= 45000) {
-            return (income - 18200) * 0.16;
-        }
-
-        if (income <= 135000) {
-            return 4288 + (income - 45000) * 0.30;
-        }
-
-        if (income <= 190000) {
-            return 31288 + (income - 135000) * 0.37;
-        }
-
-        return 51638 + (income - 190000) * 0.45;
     }
 
 
-    function calculateMedicareLevy(taxableIncome) {
+    if (income <= 118000) {
 
-        /*
-         * Simplified placeholder.
-         *
-         * We will replace this with the exact ATO rules after
-         * the basic calculator structure is working.
-         */
+        return {
+            amount: income * 0.01,
+            rate: 0.01,
+            label: "Tier 1 — 1.0%"
+        };
 
-        return taxableIncome * 0.02;
     }
 
 
-    function calculateHELPRepayment(taxableIncome) {
+    if (income <= 158000) {
 
-        /*
-         * Placeholder.
-         *
-         * Exact HELP repayment thresholds/rates will be added
-         * according to the selected tax year.
-         */
+        return {
+            amount: income * 0.0125,
+            rate: 0.0125,
+            label: "Tier 2 — 1.25%"
+        };
 
-        const income = Math.max(0, taxableIncome);
-
-        if (
-            document.getElementById("helpDebt").value === "no"
-        ) {
-            return 0;
-        }
-
-        if (income < 67000) {
-            return 0;
-        }
-
-        if (income < 75000) {
-            return income * 0.01;
-        }
-
-        if (income < 85000) {
-            return income * 0.02;
-        }
-
-        if (income < 100000) {
-            return income * 0.025;
-        }
-
-        return income * 0.03;
     }
 
 
-    // ------------------------------------------------------------
-    // MAIN CALCULATION
-    // ------------------------------------------------------------
+    return {
 
-    function calculateEverything() {
+        amount: income * 0.015,
 
-        const totalAnnualIncome = incomeSources.reduce(
-            (total, income) => {
+        rate: 0.015,
 
-                return total + calculateIncome(income).annual;
+        label: "Tier 3 — 1.5%"
 
-            },
+    };
+}
+
+
+/* ================================================================
+   HELP
+   ================================================================ */
+
+
+function getHELPBracket(income) {
+
+    return HELP_RULES.find(
+
+        bracket =>
+
+            income >= bracket.min &&
+            income <= bracket.max
+
+    );
+}
+
+
+function calculateHELPRepayment(income) {
+
+    const hasHELP =
+        document.getElementById(
+            "helpDebt"
+        ).value === "yes";
+
+
+    if (!hasHELP || income <= 67000) {
+        return 0;
+    }
+
+
+    /*
+       Marginal HELP calculation:
+
+       Only the income above $67,000 is subject
+       to the applicable repayment rate.
+    */
+
+
+    const bracket =
+        getHELPBracket(income);
+
+
+    if (!bracket) {
+        return 0;
+    }
+
+
+    const amountAboveThreshold =
+        income - 67000;
+
+
+    return (
+        amountAboveThreshold *
+        bracket.rate
+    );
+}
+
+
+/* ================================================================
+   TAX INSIGHT
+   ================================================================ */
+
+
+function updateTaxInsight(
+    taxableIncome,
+    medicareSurcharge
+) {
+
+    const taxBracket =
+        getTaxBracket(
+            taxableIncome
+        );
+
+
+    const helpEnabled =
+        document.getElementById(
+            "helpDebt"
+        ).value === "yes";
+
+
+    const helpBracket =
+        getHELPBracket(
+            taxableIncome
+        );
+
+
+    /*
+       Income tax insight
+    */
+
+
+    if (taxableIncome <= 0) {
+
+        document.getElementById(
+            "taxBracketInsight"
+        ).textContent =
+            "No income entered";
+
+
+        document.getElementById(
+            "taxRateInsight"
+        ).textContent =
+            "—";
+
+    } else {
+
+        document.getElementById(
+            "taxBracketInsight"
+        ).textContent =
+            taxBracket.label;
+
+
+        document.getElementById(
+            "taxRateInsight"
+        ).textContent =
+            `${(taxBracket.rate * 100).toFixed(0)}%`;
+    }
+
+
+    /*
+       Medicare
+    */
+
+
+    document.getElementById(
+        "medicareInsight"
+    ).textContent =
+        taxableIncome > 0
+            ? "2.0%"
+            : "—";
+
+
+    /*
+       Medicare surcharge
+    */
+
+
+    if (
+        taxableIncome <= 0 ||
+        medicareSurcharge.rate === 0
+    ) {
+
+        document.getElementById(
+            "mlsInsight"
+        ).textContent =
+            "0% — no surcharge";
+
+    } else {
+
+        document.getElementById(
+            "mlsInsight"
+        ).textContent =
+            `${(
+                medicareSurcharge.rate * 100
+            ).toFixed(2)}% — ${
+                medicareSurcharge.label
+            }`;
+    }
+
+
+    /*
+       HELP
+    */
+
+
+    if (!helpEnabled) {
+
+        document.getElementById(
+            "helpBracketInsight"
+        ).textContent =
+            "No HELP debt";
+
+
+        document.getElementById(
+            "helpRateInsight"
+        ).textContent =
+            "0%";
+
+    } else if (taxableIncome <= 0) {
+
+        document.getElementById(
+            "helpBracketInsight"
+        ).textContent =
+            "No income entered";
+
+
+        document.getElementById(
+            "helpRateInsight"
+        ).textContent =
+            "—";
+
+    } else if (taxableIncome <= 67000) {
+
+        document.getElementById(
+            "helpBracketInsight"
+        ).textContent =
+            "Below $67,000";
+
+
+        document.getElementById(
+            "helpRateInsight"
+        ).textContent =
+            "0%";
+
+    } else {
+
+        document.getElementById(
+            "helpBracketInsight"
+        ).textContent =
+            helpBracket.label;
+
+
+        document.getElementById(
+            "helpRateInsight"
+        ).textContent =
+            `${(
+                helpBracket.rate * 100
+            ).toFixed(0)}%`;
+    }
+}
+
+
+/* ================================================================
+   MAIN CALCULATION
+   ================================================================ */
+
+
+function calculateEverything() {
+
+    /*
+       TOTAL GROSS INCOME
+    */
+
+
+    const totalAnnualIncome =
+        incomeSources.reduce(
+
+            (total, income) =>
+
+                total +
+                calculateIncome(income).annual,
+
             0
+
         );
 
 
-        // TAX
+    /*
+       TAXABLE INCOME
 
-        const taxableIncome = totalAnnualIncome;
+       Currently equal to gross income because
+       deductions have not yet been built.
+    */
 
-        const incomeTax = calculateIncomeTax(
+
+    const taxableIncome =
+        totalAnnualIncome;
+
+
+    /*
+       INCOME TAX
+    */
+
+
+    const incomeTax =
+        calculateIncomeTax(
             taxableIncome
         );
 
-        const medicareLevy = calculateMedicareLevy(
+
+    /*
+       MEDICARE
+    */
+
+
+    const medicareLevy =
+        calculateMedicareLevy(
             taxableIncome
         );
 
-        const medicareSurcharge = 0;
 
-        const helpRepayment = calculateHELPRepayment(
+    /*
+       MLS
+    */
+
+
+    const medicareSurcharge =
+        calculateMedicareSurcharge(
             taxableIncome
         );
 
 
-        const totalGovernmentDeductions =
-            incomeTax +
-            medicareLevy +
-            medicareSurcharge +
-            helpRepayment;
+    /*
+       HELP
+    */
 
 
-        const afterTaxAnnual =
-            totalAnnualIncome -
-            totalGovernmentDeductions;
-
-
-        // EXPENSES
-
-        const totalWeeklyExpenses =
-            expenses.reduce(
-                (total, expense) => {
-
-                    return total +
-                        expenseToWeekly(expense);
-
-                },
-                0
-            );
-
-
-        const afterTaxWeekly =
-            afterTaxAnnual / WEEKS_PER_YEAR;
-
-
-        const moneyAvailableWeekly =
-            afterTaxWeekly -
-            totalWeeklyExpenses;
-
-
-        // UPDATE TAX DISPLAY
-
-        document.getElementById(
-            "taxTotalIncome"
-        ).textContent = currency(totalAnnualIncome);
-
-
-        document.getElementById(
-            "taxableIncome"
-        ).textContent = currency(taxableIncome);
-
-
-        document.getElementById(
-            "incomeTax"
-        ).textContent = currency(incomeTax);
-
-
-        document.getElementById(
-            "medicareLevy"
-        ).textContent = currency(medicareLevy);
-
-
-        document.getElementById(
-            "medicareSurcharge"
-        ).textContent = currency(medicareSurcharge);
-
-
-        document.getElementById(
-            "helpRepayment"
-        ).textContent = currency(helpRepayment);
-
-
-        document.getElementById(
-            "totalGovernmentDeductions"
-        ).textContent =
-            currency(totalGovernmentDeductions);
-
-
-        // TOTAL INCOME
-
-        document.getElementById(
-            "totalAnnualIncome"
-        ).textContent =
-            currency(totalAnnualIncome);
-
-
-        document.getElementById(
-            "totalMonthlyIncome"
-        ).textContent =
-            currency(totalAnnualIncome / 12);
-
-
-        document.getElementById(
-            "totalFortnightlyIncome"
-        ).textContent =
-            currency(totalAnnualIncome / 26);
-
-
-        document.getElementById(
-            "totalWeeklyIncome"
-        ).textContent =
-            currency(afterTaxAnnual / 52);
-
-
-        // AFTER TAX
-
-        document.getElementById(
-            "afterTaxAnnual"
-        ).textContent =
-            currency(afterTaxAnnual);
-
-
-        document.getElementById(
-            "afterTaxMonthly"
-        ).textContent =
-            currency(afterTaxAnnual / 12);
-
-
-        document.getElementById(
-            "afterTaxWeekly"
-        ).textContent =
-            currency(afterTaxWeekly);
-
-
-        /*
-         * 52 weeks × 38 hours is currently used as a simple
-         * full-time equivalent for the displayed hourly figure.
-         *
-         * We can later make working hours a user setting.
-         */
-
-        document.getElementById(
-            "afterTaxHourly"
-        ).textContent =
-            currency(afterTaxAnnual / 52 / 38);
-
-
-        // MONEY AVAILABLE
-
-        document.getElementById(
-            "moneyAvailable"
-        ).textContent =
-            `${currency(moneyAvailableWeekly)} / week`;
-
-
-        const status =
-            document.getElementById("budgetStatus");
-
-
-        if (totalAnnualIncome === 0) {
-
-            status.textContent =
-                "Add your income and expenses to begin.";
-
-        } else if (moneyAvailableWeekly > 0) {
-
-            status.textContent =
-                "✓ Budget balanced";
-
-        } else if (moneyAvailableWeekly === 0) {
-
-            status.textContent =
-                "Budget exactly balanced.";
-
-        } else {
-
-            status.textContent =
-                "⚠ Expenses exceed available income.";
-
-        }
-
-
-        renderAllocation();
-    }
-
-
-    // ------------------------------------------------------------
-    // BUDGET ALLOCATION
-    // ------------------------------------------------------------
-
-    function renderAllocation() {
-
-        const column1 =
-            document.getElementById(
-                "allocationColumn1"
-            );
-
-        const column2 =
-            document.getElementById(
-                "allocationColumn2"
-            );
-
-
-        column1.innerHTML = "";
-
-        column2.innerHTML = "";
-
-
-        if (allocations.length === 0) {
-
-            allocations = [
-                {
-                    id: Date.now() + 1,
-                    name: "",
-                    amount: 0
-                }
-            ];
-
-        }
-
-
-        allocations.forEach(
-            (allocation, index) => {
-
-                const row =
-                    document.createElement("div");
-
-                row.className = "budget-row";
-
-
-                row.innerHTML = `
-
-                    <input
-                        type="text"
-                        placeholder="Allocation"
-                        value="${escapeHtml(allocation.name)}"
-                        data-allocation-id="${allocation.id}"
-                        data-allocation-field="name">
-
-                    <input
-                        type="number"
-                        min="0"
-                        step="0.01"
-                        placeholder="0.00"
-                        value="${allocation.amount || ""}"
-                        data-allocation-id="${allocation.id}"
-                        data-allocation-field="amount">
-
-                    <span
-                        class="percentage"
-                        data-percentage-id="${allocation.id}">
-                        0.0%
-                    </span>
-
-                `;
-
-
-                if (index % 2 === 0) {
-
-                    column1.appendChild(row);
-
-                } else {
-
-                    column2.appendChild(row);
-
-                }
-
-            }
+    const helpRepayment =
+        calculateHELPRepayment(
+            taxableIncome
         );
 
 
-        attachAllocationListeners();
-
-        updateAllocationPercentages();
-    }
-
-
-    function attachAllocationListeners() {
-
-        document
-            .querySelectorAll("[data-allocation-id]")
-            .forEach(input => {
-
-                input.addEventListener(
-                    "input",
-                    function () {
-
-                        const id =
-                            Number(
-                                this.dataset.allocationId
-                            );
-
-                        const field =
-                            this.dataset.allocationField;
+    /*
+       TOTAL GOVERNMENT DEDUCTIONS
+    */
 
 
-                        const allocation =
-                            allocations.find(
-                                item => item.id === id
-                            );
+    const totalGovernmentDeductions =
+
+        incomeTax +
+
+        medicareLevy +
+
+        medicareSurcharge.amount +
+
+        helpRepayment;
 
 
-                        if (!allocation) return;
+    /*
+       AFTER TAX
+    */
 
 
-                        if (field === "name") {
+    const afterTaxAnnual =
 
-                            allocation.name =
-                                this.value;
+        totalAnnualIncome -
 
-                        } else {
-
-                            allocation.amount =
-                                number(this.value);
-
-                        }
+        totalGovernmentDeductions;
 
 
-                        updateAllocationPercentages();
-
-                    }
-                );
-
-            });
-    }
+    const afterTaxMonthly =
+        afterTaxAnnual / 12;
 
 
-    function updateAllocationPercentages() {
-
-        const afterTaxAnnual =
-            incomeSources.reduce(
-                (total, income) => {
-
-                    return total +
-                        calculateIncome(income).annual;
-
-                },
-                0
-            );
+    const afterTaxFortnightly =
+        afterTaxAnnual / 26;
 
 
-        const incomeTax =
-            calculateIncomeTax(afterTaxAnnual);
+    const afterTaxWeekly =
+        afterTaxAnnual / 52;
 
 
-        const medicare =
-            calculateMedicareLevy(afterTaxAnnual);
+    /*
+       EXPENSES
+    */
 
 
-        const help =
-            calculateHELPRepayment(afterTaxAnnual);
+    const totalWeeklyExpenses =
+        expenses.reduce(
+
+            (total, expense) =>
+
+                total +
+                expenseToWeekly(expense),
+
+            0
+
+        );
 
 
-        const availableWeekly =
-            (
-                afterTaxAnnual -
-                incomeTax -
-                medicare -
-                help
-            ) / 52;
+    /*
+       MONEY AVAILABLE
+    */
 
 
-        const totalAllocated =
-            allocations.reduce(
-                (total, allocation) => {
+    const moneyAvailableWeekly =
 
-                    return total +
-                        number(allocation.amount);
+        afterTaxWeekly -
 
-                },
-                0
-            );
+        totalWeeklyExpenses;
 
 
-        allocations.forEach(allocation => {
-
-            const percentage =
-                totalAllocated > 0
-                    ? number(allocation.amount)
-                        / totalAllocated * 100
-                    : 0;
+    /*
+       UPDATE TOTAL INCOME
+    */
 
 
-            const element =
-                document.querySelector(
-                    `[data-percentage-id="${allocation.id}"]`
-                );
+    document.getElementById(
+        "totalAnnualIncome"
+    ).textContent =
+        currency(totalAnnualIncome);
 
 
-            if (element) {
+    document.getElementById(
+        "totalMonthlyIncome"
+    ).textContent =
+        currency(
+            totalAnnualIncome / 12
+        );
 
-                element.textContent =
-                    `${percentage.toFixed(1)}%`;
 
-            }
+    document.getElementById(
+        "totalFortnightlyIncome"
+    ).textContent =
+        currency(
+            totalAnnualIncome / 26
+        );
 
-        });
+
+    document.getElementById(
+        "totalWeeklyIncome"
+    ).textContent =
+        currency(
+            totalAnnualIncome / 52
+        );
+
+
+    /*
+       UPDATE TAX
+    */
+
+
+    document.getElementById(
+        "taxTotalIncome"
+    ).textContent =
+        currency(totalAnnualIncome);
+
+
+    document.getElementById(
+        "taxableIncome"
+    ).textContent =
+        currency(taxableIncome);
+
+
+    document.getElementById(
+        "incomeTax"
+    ).textContent =
+        currency(incomeTax);
+
+
+    document.getElementById(
+        "medicareLevy"
+    ).textContent =
+        currency(medicareLevy);
+
+
+    document.getElementById(
+        "medicareSurcharge"
+    ).textContent =
+        currency(
+            medicareSurcharge.amount
+        );
+
+
+    document.getElementById(
+        "helpRepayment"
+    ).textContent =
+        currency(helpRepayment);
+
+
+    document.getElementById(
+        "totalGovernmentDeductions"
+    ).textContent =
+        currency(
+            totalGovernmentDeductions
+        );
+
+
+    /*
+       UPDATE INSIGHT
+    */
+
+
+    updateTaxInsight(
+        taxableIncome,
+        medicareSurcharge
+    );
+
+
+    /*
+       UPDATE AFTER TAX
+    */
+
+
+    document.getElementById(
+        "afterTaxAnnual"
+    ).textContent =
+        currency(afterTaxAnnual);
+
+
+    document.getElementById(
+        "afterTaxMonthly"
+    ).textContent =
+        currency(afterTaxMonthly);
+
+
+    document.getElementById(
+        "afterTaxWeekly"
+    ).textContent =
+        currency(afterTaxWeekly);
+
+
+    /*
+       Effective hourly figure.
+
+       This is based on 38 hours/week.
+       It is an informational equivalent, not a user's
+       actual hourly wage.
+    */
+
+
+    document.getElementById(
+        "afterTaxHourly"
+    ).textContent =
+        currency(
+            afterTaxAnnual /
+            52 /
+            38
+        );
+
+
+    /*
+       MONEY AVAILABLE
+    */
+
+
+    document.getElementById(
+        "moneyAvailable"
+    ).textContent =
+
+        `${currency(
+            moneyAvailableWeekly
+        )} / week`;
+
+
+    /*
+       STATUS
+    */
+
+
+    const status =
+        document.getElementById(
+            "budgetStatus"
+        );
+
+
+    if (totalAnnualIncome === 0) {
+
+        status.textContent =
+            "Add your income and expenses to begin.";
+
+    } else if (moneyAvailableWeekly > 0) {
+
+        status.textContent =
+            "✓ Budget balanced";
+
+    } else if (moneyAvailableWeekly === 0) {
+
+        status.textContent =
+            "Budget exactly balanced.";
+
+    } else {
+
+        status.textContent =
+            "⚠ Expenses exceed available income.";
 
     }
 
-
-    // ------------------------------------------------------------
-    // ESCAPE HTML
-    // ------------------------------------------------------------
-
-    function escapeHtml(value) {
-
-        return String(value)
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
-    }
+}
 
 
-    // ------------------------------------------------------------
-    // BUTTONS
-    // ------------------------------------------------------------
+/* ================================================================
+   HTML ESCAPING
+   ================================================================ */
 
-    document
-        .getElementById("addIncomeButton")
-        .addEventListener(
-            "click",
-            addIncomeSource
+
+function escapeHtml(value) {
+
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
         );
+}
 
 
-    document
-        .getElementById("addExpenseButton")
-        .addEventListener(
-            "click",
-            addExpense
-        );
+/* ================================================================
+   BUTTONS & SETTINGS
+   ================================================================ */
 
 
-    document
-        .getElementById("helpDebt")
-        .addEventListener(
-            "change",
-            calculateEverything
-        );
+document
+    .getElementById(
+        "addIncomeButton"
+    )
+    .addEventListener(
+        "click",
+        addIncomeSource
+    );
 
 
-    document
-        .getElementById("taxYear")
-        .addEventListener(
-            "change",
-            calculateEverything
-        );
+document
+    .getElementById(
+        "addExpenseButton"
+    )
+    .addEventListener(
+        "click",
+        addExpense
+    );
 
 
-    document
-        .getElementById("privateHospital")
-        .addEventListener(
-            "change",
-            calculateEverything
-        );
+document
+    .getElementById(
+        "helpDebt"
+    )
+    .addEventListener(
+        "change",
+        calculateEverything
+    );
 
 
-    // ------------------------------------------------------------
-    // INITIALISE
-    // ------------------------------------------------------------
+document
+    .getElementById(
+        "taxYear"
+    )
+    .addEventListener(
+        "change",
+        calculateEverything
+    );
 
-    renderIncome();
 
-    renderExpenses();
+document
+    .getElementById(
+        "privateHospital"
+    )
+    .addEventListener(
+        "change",
+        calculateEverything
+    );
 
-    renderAllocation();
 
-    calculateEverything();
+/* ================================================================
+   INITIALISE
+   ================================================================ */
+
+
+renderIncome();
+
+renderExpenses();
+
+calculateEverything();
 
 </script>
 
