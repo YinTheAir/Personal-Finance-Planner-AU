@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -8,6 +9,10 @@
 <title>Personal Finance Planner AU</title>
 
 <style>
+
+/* =====================================================
+   GLOBAL
+===================================================== */
 
 * {
     box-sizing: border-box;
@@ -74,35 +79,6 @@ header p {
     line-height: 1.5;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th {
-    text-align: right;
-    padding: 10px;
-    border-bottom: 2px solid #e5e7eb;
-    font-size: 13px;
-    color: #6b7280;
-    white-space: nowrap;
-}
-
-th:first-child {
-    text-align: left;
-}
-
-td {
-    padding: 12px 10px;
-    border-bottom: 1px solid #f0f0f0;
-    text-align: right;
-    vertical-align: middle;
-}
-
-td:first-child {
-    text-align: left;
-}
-
 input,
 select {
     padding: 9px 10px;
@@ -119,21 +95,10 @@ select:focus {
     box-shadow: 0 0 0 2px rgba(107,114,128,0.12);
 }
 
-.source-input {
-    width: 170px;
-}
 
-.income-type {
-    width: 150px;
-}
-
-.income-input {
-    width: 130px;
-}
-
-.hours-input {
-    width: 105px;
-}
+/* =====================================================
+   BUTTONS
+===================================================== */
 
 .add-button {
     border: none;
@@ -163,33 +128,87 @@ select:focus {
     color: #ef4444;
 }
 
+
+/* =====================================================
+   SETTINGS
+===================================================== */
+
+.settings-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.setting label {
+    display: block;
+    font-size: 13px;
+    color: #6b7280;
+    margin-bottom: 7px;
+}
+
+.setting select {
+    width: 100%;
+}
+
+
+/* =====================================================
+   INCOME TABLE
+===================================================== */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    text-align: right;
+    padding: 10px;
+    border-bottom: 2px solid #e5e7eb;
+    font-size: 13px;
+    color: #6b7280;
+    white-space: nowrap;
+}
+
+th:first-child {
+    text-align: left;
+}
+
+td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #f0f0f0;
+    text-align: right;
+    vertical-align: middle;
+}
+
+td:first-child {
+    text-align: left;
+}
+
+.source-input {
+    width: 170px;
+}
+
+.income-type {
+    width: 150px;
+}
+
+.income-input {
+    width: 130px;
+}
+
+.hours-input {
+    width: 105px;
+}
+
 .total-row {
     font-weight: bold;
     background: #f9fafb;
 }
 
-.summary-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-}
 
-.summary-card {
-    background: #f9fafb;
-    border-radius: 10px;
-    padding: 20px;
-}
-
-.summary-card .label {
-    font-size: 13px;
-    color: #6b7280;
-    margin-bottom: 8px;
-}
-
-.summary-card .value {
-    font-size: 24px;
-    font-weight: 700;
-}
+/* =====================================================
+   TAX
+===================================================== */
 
 .tax-grid {
     display: grid;
@@ -256,6 +275,11 @@ select:focus {
     line-height: 1.35;
 }
 
+
+/* =====================================================
+   CALCULATION BOX
+===================================================== */
+
 .calculation-box {
     margin-top: 20px;
     background: white;
@@ -283,24 +307,30 @@ select:focus {
 
 
 /* =====================================================
-   SETTINGS
+   AFTER TAX
 ===================================================== */
 
-.settings-grid {
+.summary-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
 }
 
-.setting label {
-    display: block;
+.summary-card {
+    background: #f9fafb;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.summary-card .label {
     font-size: 13px;
     color: #6b7280;
-    margin-bottom: 7px;
+    margin-bottom: 8px;
 }
 
-.setting select {
-    width: 100%;
+.summary-card .value {
+    font-size: 24px;
+    font-weight: 700;
 }
 
 
@@ -380,20 +410,25 @@ select:focus {
 }
 
 .available-card {
-    background: rgba(255,255,255,0.75);
+    background: white;
     border-radius: 10px;
     padding: 18px;
 }
 
 .available-card .label {
-    font-size: 13px;
     color: #6b7280;
+    font-size: 13px;
 }
 
 .available-card .value {
-    font-size: 25px;
+    font-size: 23px;
     font-weight: 700;
     margin-top: 5px;
+}
+
+.big-number {
+    font-size: 34px;
+    font-weight: 700;
 }
 
 .status {
@@ -403,15 +438,59 @@ select:focus {
 
 
 /* =====================================================
-   ALLOCATION
+   DISCRETIONARY ALLOCATION
 ===================================================== */
+
+.allocation-header {
+    display: grid;
+    grid-template-columns:
+        1fr
+        140px
+        140px
+        120px
+        120px
+        120px
+        50px;
+
+    gap: 10px;
+
+    align-items: center;
+
+    padding: 10px 0;
+
+    border-bottom: 2px solid #e5e7eb;
+
+    color: #6b7280;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    text-align: right;
+}
+
+.allocation-header div:first-child {
+    text-align: left;
+}
 
 .allocation-row {
     display: grid;
-    grid-template-columns: 1fr 140px 140px 150px 150px 150px 50px;
+
+    grid-template-columns:
+        1fr
+        140px
+        140px
+        120px
+        120px
+        120px
+        50px;
+
     gap: 10px;
+
     align-items: center;
+
     padding: 10px 0;
+
     border-bottom: 1px solid #f0f0f0;
 }
 
@@ -420,20 +499,48 @@ select:focus {
     width: 100%;
 }
 
-.allocation-output {
+.allocation-row .allocation-weekly,
+.allocation-row .allocation-monthly,
+.allocation-row .allocation-annual {
     text-align: right;
-    font-size: 14px;
+    font-weight: 500;
 }
 
 .allocation-total {
     margin-top: 20px;
     padding-top: 18px;
     border-top: 2px solid #e5e7eb;
+
     display: flex;
     justify-content: space-between;
-    font-weight: bold;
+
     gap: 20px;
+
+    font-weight: bold;
 }
+
+.allocation-chart-section {
+    margin-top: 30px;
+    padding-top: 25px;
+    border-top: 2px solid #e5e7eb;
+}
+
+.allocation-chart-section h3 {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.chart-container {
+    max-width: 600px;
+    height: 420px;
+    margin: 25px auto 5px;
+    position: relative;
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
 
 .success {
     color: #15803d;
@@ -441,78 +548,6 @@ select:focus {
 
 .danger {
     color: #dc2626;
-}
-
-
-/* =====================================================
-   PIE CHART
-===================================================== */
-
-.chart-section {
-    margin-top: 30px;
-    background: #f9fafb;
-    border-radius: 10px;
-    padding: 22px;
-}
-
-.chart-section h3 {
-    margin-top: 0;
-}
-
-.chart-layout {
-    display: grid;
-    grid-template-columns: 420px 1fr;
-    gap: 35px;
-    align-items: center;
-}
-
-.chart-wrapper {
-    position: relative;
-    width: 100%;
-    max-width: 400px;
-    margin: auto;
-}
-
-canvas {
-    width: 100%;
-    height: auto;
-}
-
-.chart-legend {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.legend-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-    padding: 8px 0;
-    border-bottom: 1px solid #e5e7eb;
-}
-
-.legend-left {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-}
-
-.legend-colour {
-    width: 13px;
-    height: 13px;
-    border-radius: 4px;
-    flex-shrink: 0;
-}
-
-.legend-name {
-    font-size: 14px;
-}
-
-.legend-value {
-    font-weight: 600;
-    font-size: 14px;
 }
 
 
@@ -534,19 +569,11 @@ footer {
 
 @media (max-width: 1100px) {
 
+    .allocation-header,
     .allocation-row {
-        grid-template-columns:
-            1fr 120px 120px 120px;
-    }
 
-    .allocation-row .allocation-output:nth-of-type(4),
-    .allocation-row .allocation-output:nth-of-type(5),
-    .allocation-row .allocation-output:nth-of-type(6) {
-        display: none;
-    }
+        min-width: 950px;
 
-    .chart-layout {
-        grid-template-columns: 1fr;
     }
 
 }
@@ -556,21 +583,34 @@ footer {
     .summary-grid,
     .settings-grid,
     .tax-grid,
-    .expense-grid,
-    .available-summary-grid {
+    .expense-grid {
+
         grid-template-columns: 1fr;
+
     }
 
     .insight-grid {
+
         grid-template-columns: 1fr 1fr;
+
     }
 
     table {
+
         min-width: 1050px;
+
     }
 
     .section {
+
         overflow-x: auto;
+
+    }
+
+    .available-summary-grid {
+
+        grid-template-columns: 1fr;
+
     }
 
 }
@@ -578,15 +618,21 @@ footer {
 @media (max-width: 600px) {
 
     header {
+
         padding: 24px 20px;
+
     }
 
     .container {
+
         padding: 0 12px;
+
     }
 
     .insight-grid {
+
         grid-template-columns: 1fr;
+
     }
 
 }
@@ -606,7 +652,8 @@ footer {
     </h1>
 
     <p>
-        Income → Tax & HELP → Living Expenses → Money Available → Discretionary Planning
+        Income → Tax & HELP → Living Expenses →
+        Money Available → Discretionary Planning
     </p>
 
 </header>
@@ -625,7 +672,9 @@ footer {
 
         <div>
 
-            <h2>Tax & Personal Settings</h2>
+            <h2>
+                Tax & Personal Settings
+            </h2>
 
             <div class="section-description">
                 These settings control the tax and HELP calculations.
@@ -638,9 +687,12 @@ footer {
 
     <div class="settings-grid">
 
+
         <div class="setting">
 
-            <label>Tax year</label>
+            <label>
+                Tax year
+            </label>
 
             <select
                 id="taxYear"
@@ -662,7 +714,9 @@ footer {
 
         <div class="setting">
 
-            <label>HELP / HECS debt</label>
+            <label>
+                HELP / HECS debt
+            </label>
 
             <select
                 id="hasHELP"
@@ -684,7 +738,9 @@ footer {
 
         <div class="setting">
 
-            <label>Private hospital cover</label>
+            <label>
+                Private hospital cover
+            </label>
 
             <select
                 id="privateHospital"
@@ -718,12 +774,16 @@ footer {
 
         <div>
 
-            <h2>Income</h2>
+            <h2>
+                Income
+            </h2>
 
             <div class="section-description">
-                Full-time employment can be entered as an annual salary.
-                Casual or part-time employment can be entered using hourly
-                rate and hours per week.
+
+                Full-time employment can be entered as an annual
+                salary. Casual or part-time employment can be
+                entered using hourly rate and hours per week.
+
             </div>
 
         </div>
@@ -745,14 +805,38 @@ footer {
 
             <tr>
 
-                <th>Source</th>
-                <th>Income type</th>
-                <th>Amount</th>
-                <th>Hours / week</th>
-                <th>Annual</th>
-                <th>Monthly</th>
-                <th>Weekly</th>
-                <th>Hourly</th>
+                <th>
+                    Source
+                </th>
+
+                <th>
+                    Income type
+                </th>
+
+                <th>
+                    Amount
+                </th>
+
+                <th>
+                    Hours / week
+                </th>
+
+                <th>
+                    Annual
+                </th>
+
+                <th>
+                    Monthly
+                </th>
+
+                <th>
+                    Weekly
+                </th>
+
+                <th>
+                    Hourly
+                </th>
+
                 <th></th>
 
             </tr>
@@ -777,10 +861,15 @@ footer {
 
         <div>
 
-            <h2>Tax & Government Repayments</h2>
+            <h2>
+                Tax & Government Repayments
+            </h2>
 
             <div class="section-description">
-                Estimated annual amounts based on the income entered above.
+
+                Estimated annual amounts based on the income
+                entered above.
+
             </div>
 
         </div>
@@ -794,18 +883,41 @@ footer {
         <div>
 
             <div class="tax-row">
-                <span>Total income</span>
-                <strong id="taxTotalIncome">$0.00</strong>
+
+                <span>
+                    Total income
+                </span>
+
+                <strong id="taxTotalIncome">
+                    $0.00
+                </strong>
+
             </div>
 
-            <div class="tax-row">
-                <span>Tax deductions</span>
-                <strong>$0.00</strong>
-            </div>
 
             <div class="tax-row">
-                <span>Taxable income</span>
-                <strong id="taxableIncome">$0.00</strong>
+
+                <span>
+                    Tax deductions
+                </span>
+
+                <strong>
+                    $0.00
+                </strong>
+
+            </div>
+
+
+            <div class="tax-row">
+
+                <span>
+                    Taxable income
+                </span>
+
+                <strong id="taxableIncome">
+                    $0.00
+                </strong>
+
             </div>
 
         </div>
@@ -814,28 +926,67 @@ footer {
         <div>
 
             <div class="tax-row">
-                <span>Income tax</span>
-                <strong id="incomeTax">$0.00</strong>
+
+                <span>
+                    Income tax
+                </span>
+
+                <strong id="incomeTax">
+                    $0.00
+                </strong>
+
             </div>
 
-            <div class="tax-row">
-                <span>Medicare levy</span>
-                <strong id="medicareLevy">$0.00</strong>
-            </div>
 
             <div class="tax-row">
-                <span>Medicare levy surcharge</span>
-                <strong id="medicareSurcharge">$0.00</strong>
+
+                <span>
+                    Medicare levy
+                </span>
+
+                <strong id="medicareLevy">
+                    $0.00
+                </strong>
+
             </div>
 
+
             <div class="tax-row">
-                <span>HELP repayment</span>
-                <strong id="helpRepayment">$0.00</strong>
+
+                <span>
+                    Medicare levy surcharge
+                </span>
+
+                <strong id="medicareSurcharge">
+                    $0.00
+                </strong>
+
             </div>
+
+
+            <div class="tax-row">
+
+                <span>
+                    HELP repayment
+                </span>
+
+                <strong id="helpRepayment">
+                    $0.00
+                </strong>
+
+            </div>
+
 
             <div class="tax-row total">
-                <span>Total government deductions</span>
-                <strong id="totalGovernment">$0.00</strong>
+
+                <span>
+                    Total government deductions
+                </span>
+
+                <strong id="totalGovernment">
+                    $0.00
+                </strong>
+
             </div>
 
         </div>
@@ -843,67 +994,161 @@ footer {
     </div>
 
 
-    <!-- INSIGHTS -->
+    <!-- =================================================
+         INSIGHTS
+    ================================================== -->
 
     <div class="insight-box">
 
-        <h3>Tax & HELP Insights</h3>
+        <h3>
+            Tax & HELP Insights
+        </h3>
 
 
         <div class="insight-grid">
 
 
             <div class="insight-card">
-                <div class="label">Income tax bracket</div>
-                <div class="value" id="taxBracket">—</div>
+
+                <div class="label">
+                    Income tax bracket
+                </div>
+
+                <div
+                    class="value"
+                    id="taxBracket"
+                >
+                    —
+                </div>
+
             </div>
 
 
             <div class="insight-card">
-                <div class="label">Marginal income tax rate</div>
-                <div class="value" id="taxRate">—</div>
+
+                <div class="label">
+                    Marginal income tax rate
+                </div>
+
+                <div
+                    class="value"
+                    id="taxRate"
+                >
+                    —
+                </div>
+
             </div>
 
 
             <div class="insight-card">
-                <div class="label">Medicare levy</div>
-                <div class="value" id="medicareRate">—</div>
+
+                <div class="label">
+                    Medicare levy
+                </div>
+
+                <div
+                    class="value"
+                    id="medicareRate"
+                >
+                    —
+                </div>
+
             </div>
 
 
             <div class="insight-card">
-                <div class="label">MLS tier</div>
-                <div class="value" id="mlsTier">—</div>
+
+                <div class="label">
+                    MLS tier
+                </div>
+
+                <div
+                    class="value"
+                    id="mlsTier"
+                >
+                    —
+                </div>
+
             </div>
 
 
             <div class="insight-card">
-                <div class="label">MLS rate</div>
-                <div class="value" id="mlsRate">—</div>
+
+                <div class="label">
+                    MLS rate
+                </div>
+
+                <div
+                    class="value"
+                    id="mlsRate"
+                >
+                    —
+                </div>
+
             </div>
 
 
             <div class="insight-card">
-                <div class="label">HELP repayment bracket</div>
-                <div class="value" id="helpBracket">—</div>
+
+                <div class="label">
+                    HELP repayment bracket
+                </div>
+
+                <div
+                    class="value"
+                    id="helpBracket"
+                >
+                    —
+                </div>
+
             </div>
 
 
             <div class="insight-card">
-                <div class="label">HELP marginal rate</div>
-                <div class="value" id="helpRate">—</div>
+
+                <div class="label">
+                    HELP marginal rate
+                </div>
+
+                <div
+                    class="value"
+                    id="helpRate"
+                >
+                    —
+                </div>
+
             </div>
 
 
             <div class="insight-card">
-                <div class="label">HELP repayment income</div>
-                <div class="value" id="helpIncome">$0.00</div>
+
+                <div class="label">
+                    HELP repayment income
+                </div>
+
+                <div
+                    class="value"
+                    id="helpIncome"
+                >
+                    $0.00
+                </div>
+
             </div>
 
 
             <div class="insight-card">
-                <div class="label">Effective HELP rate</div>
-                <div class="value" id="helpEffectiveRate">0.00%</div>
+
+                <div class="label">
+                    Effective HELP rate
+                </div>
+
+                <div
+                    class="value"
+                    id="helpEffectiveRate"
+                >
+                    0.00%
+                </div>
+
             </div>
 
         </div>
@@ -913,17 +1158,39 @@ footer {
 
         <div class="calculation-box">
 
-            <h4>Income tax calculation</h4>
+            <h4>
+                Income tax calculation
+            </h4>
 
-            <div class="calculation-line" id="taxCalculation1">
+
+            <div
+                class="calculation-line"
+                id="taxCalculation1"
+            >
                 Enter income to see the calculation.
             </div>
 
-            <div class="calculation-line" id="taxCalculation2"></div>
 
-            <div class="calculation-line" id="taxCalculation3"></div>
+            <div
+                class="calculation-line"
+                id="taxCalculation2"
+            >
+            </div>
 
-            <div class="calculation-line" id="taxCalculation4"></div>
+
+            <div
+                class="calculation-line"
+                id="taxCalculation3"
+            >
+            </div>
+
+
+            <div
+                class="calculation-line"
+                id="taxCalculation4"
+            >
+            </div>
+
 
             <div
                 class="calculation-result"
@@ -939,15 +1206,32 @@ footer {
 
         <div class="calculation-box">
 
-            <h4>HELP repayment calculation</h4>
+            <h4>
+                HELP repayment calculation
+            </h4>
 
-            <div class="calculation-line" id="helpCalculation1">
+
+            <div
+                class="calculation-line"
+                id="helpCalculation1"
+            >
                 Enter income to see the calculation.
             </div>
 
-            <div class="calculation-line" id="helpCalculation2"></div>
 
-            <div class="calculation-line" id="helpCalculation3"></div>
+            <div
+                class="calculation-line"
+                id="helpCalculation2"
+            >
+            </div>
+
+
+            <div
+                class="calculation-line"
+                id="helpCalculation3"
+            >
+            </div>
+
 
             <div
                 class="calculation-result"
@@ -973,11 +1257,15 @@ footer {
 
         <div>
 
-            <h2>After-Tax Income</h2>
+            <h2>
+                After-Tax Income
+            </h2>
 
             <div class="section-description">
-                Estimated income remaining after income tax, Medicare,
-                MLS and HELP.
+
+                Estimated income remaining after income tax,
+                Medicare, MLS and HELP.
+
             </div>
 
         </div>
@@ -989,26 +1277,66 @@ footer {
 
 
         <div class="summary-card">
-            <div class="label">Annual</div>
-            <div class="value" id="afterTaxAnnual">$0.00</div>
+
+            <div class="label">
+                Annual
+            </div>
+
+            <div
+                class="value"
+                id="afterTaxAnnual"
+            >
+                $0.00
+            </div>
+
         </div>
 
 
         <div class="summary-card">
-            <div class="label">Monthly</div>
-            <div class="value" id="afterTaxMonthly">$0.00</div>
+
+            <div class="label">
+                Monthly
+            </div>
+
+            <div
+                class="value"
+                id="afterTaxMonthly"
+            >
+                $0.00
+            </div>
+
         </div>
 
 
         <div class="summary-card">
-            <div class="label">Weekly</div>
-            <div class="value" id="afterTaxWeekly">$0.00</div>
+
+            <div class="label">
+                Weekly
+            </div>
+
+            <div
+                class="value"
+                id="afterTaxWeekly"
+            >
+                $0.00
+            </div>
+
         </div>
 
 
         <div class="summary-card">
-            <div class="label">Hourly equivalent</div>
-            <div class="value" id="afterTaxHourly">$0.00</div>
+
+            <div class="label">
+                Hourly equivalent
+            </div>
+
+            <div
+                class="value"
+                id="afterTaxHourly"
+            >
+                $0.00
+            </div>
+
         </div>
 
     </div>
@@ -1026,11 +1354,16 @@ footer {
 
         <div>
 
-            <h2>Living Expenses</h2>
+            <h2>
+                Living Expenses
+            </h2>
 
             <div class="section-description">
-                Enter an expense and choose whether the amount is weekly,
-                fortnightly, monthly or annual. All totals update automatically.
+
+                Enter an expense and choose whether the amount is
+                weekly, fortnightly, monthly or annual. All totals
+                update automatically.
+
             </div>
 
         </div>
@@ -1051,7 +1384,9 @@ footer {
 
     <div class="expense-summary">
 
-        <h3>Total Living Expenses</h3>
+        <h3>
+            Total Living Expenses
+        </h3>
 
 
         <div class="expense-summary-grid">
@@ -1059,7 +1394,9 @@ footer {
 
             <div class="expense-summary-card">
 
-                <div class="label">Annual</div>
+                <div class="label">
+                    Annual
+                </div>
 
                 <div
                     class="value"
@@ -1073,7 +1410,9 @@ footer {
 
             <div class="expense-summary-card">
 
-                <div class="label">Monthly</div>
+                <div class="label">
+                    Monthly
+                </div>
 
                 <div
                     class="value"
@@ -1087,7 +1426,9 @@ footer {
 
             <div class="expense-summary-card">
 
-                <div class="label">Weekly</div>
+                <div class="label">
+                    Weekly
+                </div>
 
                 <div
                     class="value"
@@ -1172,8 +1513,10 @@ footer {
 
 
         <p>
-            This is the amount remaining after estimated government
-            deductions and living expenses.
+
+            This is the amount remaining after estimated
+            government deductions and living expenses.
+
         </p>
 
 
@@ -1182,6 +1525,7 @@ footer {
             id="budgetStatus"
         >
             —
+
         </div>
 
     </div>
@@ -1204,10 +1548,11 @@ footer {
             </h2>
 
             <div class="section-description">
-                Allocate your remaining weekly money to savings,
-                consumables, travel, piano, entertainment or any other
-                variable spending category. Amounts are automatically
-                converted to weekly, monthly and annual equivalents.
+
+                Allocate your remaining money to savings,
+                consumables, travel, piano, entertainment or
+                any other variable spending category.
+
             </div>
 
         </div>
@@ -1223,15 +1568,66 @@ footer {
     </div>
 
 
+    <!-- COLUMN HEADINGS -->
+
+    <div class="allocation-header">
+
+        <div>
+            Category
+        </div>
+
+        <div>
+            Allocation
+        </div>
+
+        <div>
+            Amount
+        </div>
+
+        <div>
+            Weekly
+        </div>
+
+        <div>
+            Monthly
+        </div>
+
+        <div>
+            Annual
+        </div>
+
+        <div></div>
+
+    </div>
+
+
     <div id="allocationContainer"></div>
 
 
     <div class="allocation-total">
 
-        <span>Total allocated</span>
+        <span>
+            Total allocated
+        </span>
 
-        <span id="allocationTotal">
-            $0.00 / week
+        <span>
+
+            <span id="allocationTotalWeekly">
+                $0.00 / week
+            </span>
+
+            &nbsp;·&nbsp;
+
+            <span id="allocationTotalMonthly">
+                $0.00 / month
+            </span>
+
+            &nbsp;·&nbsp;
+
+            <span id="allocationTotalAnnual">
+                $0.00 / year
+            </span>
+
         </span>
 
     </div>
@@ -1239,10 +1635,28 @@ footer {
 
     <div class="allocation-total">
 
-        <span>Remaining unallocated</span>
+        <span>
+            Remaining unallocated
+        </span>
 
-        <span id="allocationRemaining">
-            $0.00 / week
+        <span>
+
+            <span id="allocationRemainingWeekly">
+                $0.00 / week
+            </span>
+
+            &nbsp;·&nbsp;
+
+            <span id="allocationRemainingMonthly">
+                $0.00 / month
+            </span>
+
+            &nbsp;·&nbsp;
+
+            <span id="allocationRemainingAnnual">
+                $0.00 / year
+            </span>
+
         </span>
 
     </div>
@@ -1252,47 +1666,24 @@ footer {
          PIE CHART
     ================================================== -->
 
-    <div class="chart-section">
+    <div class="allocation-chart-section">
 
         <h3>
-            Where Your Annual Income Goes
+            Where Your Income Goes
         </h3>
 
         <div class="section-description">
-            This visualisation uses annual amounts so that income,
-            government deductions, living expenses and discretionary
-            allocations can be compared on the same basis.
+
+            Visual breakdown of your annual income across
+            government deductions, living expenses,
+            discretionary spending, savings and unallocated money.
+
         </div>
 
 
-        <div class="chart-layout">
+        <div class="chart-container">
 
-
-            <div class="chart-wrapper">
-
-                <canvas
-                    id="financePieChart"
-                    width="400"
-                    height="400"
-                ></canvas>
-
-            </div>
-
-
-            <div
-                class="chart-legend"
-                id="chartLegend"
-            >
-
-                <div class="legend-item">
-                    <div class="legend-left">
-                        <span class="legend-name">
-                            Enter income to see allocation
-                        </span>
-                    </div>
-                </div>
-
-            </div>
+            <canvas id="allocationChart"></canvas>
 
         </div>
 
@@ -1311,7 +1702,15 @@ footer {
 </footer>
 
 
+<!-- =====================================================
+     CHART.JS
+===================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
 <script>
+
 
 /* =====================================================
    FORMATTING
@@ -1349,7 +1748,9 @@ function addIncome(
     hours = ""
 ) {
 
-    const row = document.createElement("tr");
+    const row =
+        document.createElement("tr");
+
 
     row.innerHTML = `
 
@@ -1422,13 +1823,24 @@ function addIncome(
         </td>
 
 
-        <td class="annual-value">$0.00</td>
+        <td class="annual-value">
+            $0.00
+        </td>
 
-        <td class="monthly-value">$0.00</td>
 
-        <td class="weekly-value">$0.00</td>
+        <td class="monthly-value">
+            $0.00
+        </td>
 
-        <td class="hourly-value">—</td>
+
+        <td class="weekly-value">
+            $0.00
+        </td>
+
+
+        <td class="hourly-value">
+            —
+        </td>
 
 
         <td>
@@ -1458,6 +1870,10 @@ function addIncome(
 }
 
 
+/* =====================================================
+   CALCULATE INCOME
+===================================================== */
+
 function calculateIncome() {
 
     let totalAnnual = 0;
@@ -1484,12 +1900,14 @@ function calculateIncome() {
 
 
             let annual = 0;
+
             let hourly = 0;
 
 
             if (type === "annual") {
 
                 annual = amount;
+
 
                 if (hours > 0) {
 
@@ -1525,15 +1943,18 @@ function calculateIncome() {
 
 
             row.querySelector(".annual-value")
-                .textContent = money(annual);
+                .textContent =
+                money(annual);
 
 
             row.querySelector(".monthly-value")
-                .textContent = money(monthly);
+                .textContent =
+                money(monthly);
 
 
             row.querySelector(".weekly-value")
-                .textContent = money(weekly);
+                .textContent =
+                money(weekly);
 
 
             row.querySelector(".hourly-value")
@@ -1551,24 +1972,30 @@ function calculateIncome() {
 
 
 /* =====================================================
-   INCOME TAX
+   INCOME TAX — 2026–27
 ===================================================== */
 
 function calculateTax202627(income) {
 
     let tax = 0;
+
     let lines = [];
 
 
     if (income <= 18200) {
 
         return {
+
             tax: 0,
+
             bracket: "$0 – $18,200",
+
             marginalRate: 0,
+
             lines: [
                 `${money(income)} falls entirely within the tax-free threshold.`
             ]
+
         };
 
     }
@@ -1583,9 +2010,12 @@ function calculateTax202627(income) {
 
     if (bracket1 > 0) {
 
-        const tax1 = bracket1 * 0.15;
+        const tax1 =
+            bracket1 * 0.15;
+
 
         tax += tax1;
+
 
         lines.push(
             `${money(bracket1)} × 15% = ${money(tax1)}`
@@ -1603,9 +2033,12 @@ function calculateTax202627(income) {
 
     if (bracket2 > 0) {
 
-        const tax2 = bracket2 * 0.30;
+        const tax2 =
+            bracket2 * 0.30;
+
 
         tax += tax2;
+
 
         lines.push(
             `${money(bracket2)} × 30% = ${money(tax2)}`
@@ -1623,9 +2056,12 @@ function calculateTax202627(income) {
 
     if (bracket3 > 0) {
 
-        const tax3 = bracket3 * 0.37;
+        const tax3 =
+            bracket3 * 0.37;
+
 
         tax += tax3;
+
 
         lines.push(
             `${money(bracket3)} × 37% = ${money(tax3)}`
@@ -1635,14 +2071,20 @@ function calculateTax202627(income) {
 
 
     const bracket4 =
-        Math.max(income - 190000, 0);
+        Math.max(
+            income - 190000,
+            0
+        );
 
 
     if (bracket4 > 0) {
 
-        const tax4 = bracket4 * 0.45;
+        const tax4 =
+            bracket4 * 0.45;
+
 
         tax += tax4;
+
 
         lines.push(
             `${money(bracket4)} × 45% = ${money(tax4)}`
@@ -1652,12 +2094,14 @@ function calculateTax202627(income) {
 
 
     let bracket;
+
     let marginalRate;
 
 
     if (income <= 45000) {
 
         bracket = "$18,201 – $45,000";
+
         marginalRate = 15;
 
     }
@@ -1665,6 +2109,7 @@ function calculateTax202627(income) {
     else if (income <= 135000) {
 
         bracket = "$45,001 – $135,000";
+
         marginalRate = 30;
 
     }
@@ -1672,6 +2117,7 @@ function calculateTax202627(income) {
     else if (income <= 190000) {
 
         bracket = "$135,001 – $190,000";
+
         marginalRate = 37;
 
     }
@@ -1679,36 +2125,52 @@ function calculateTax202627(income) {
     else {
 
         bracket = "$190,001+";
+
         marginalRate = 45;
 
     }
 
 
     return {
-        tax,
-        bracket,
-        marginalRate,
-        lines
+
+        tax: tax,
+
+        bracket: bracket,
+
+        marginalRate: marginalRate,
+
+        lines: lines
+
     };
 
 }
 
 
+/* =====================================================
+   INCOME TAX — 2025–26
+===================================================== */
+
 function calculateTax202526(income) {
 
     let tax = 0;
+
     let lines = [];
 
 
     if (income <= 18200) {
 
         return {
+
             tax: 0,
+
             bracket: "$0 – $18,200",
+
             marginalRate: 0,
+
             lines: [
                 `${money(income)} falls entirely within the tax-free threshold.`
             ]
+
         };
 
     }
@@ -1723,9 +2185,12 @@ function calculateTax202526(income) {
 
     if (bracket1 > 0) {
 
-        const tax1 = bracket1 * 0.16;
+        const tax1 =
+            bracket1 * 0.16;
+
 
         tax += tax1;
+
 
         lines.push(
             `${money(bracket1)} × 16% = ${money(tax1)}`
@@ -1743,9 +2208,12 @@ function calculateTax202526(income) {
 
     if (bracket2 > 0) {
 
-        const tax2 = bracket2 * 0.30;
+        const tax2 =
+            bracket2 * 0.30;
+
 
         tax += tax2;
+
 
         lines.push(
             `${money(bracket2)} × 30% = ${money(tax2)}`
@@ -1763,9 +2231,12 @@ function calculateTax202526(income) {
 
     if (bracket3 > 0) {
 
-        const tax3 = bracket3 * 0.37;
+        const tax3 =
+            bracket3 * 0.37;
+
 
         tax += tax3;
+
 
         lines.push(
             `${money(bracket3)} × 37% = ${money(tax3)}`
@@ -1775,14 +2246,20 @@ function calculateTax202526(income) {
 
 
     const bracket4 =
-        Math.max(income - 190000, 0);
+        Math.max(
+            income - 190000,
+            0
+        );
 
 
     if (bracket4 > 0) {
 
-        const tax4 = bracket4 * 0.45;
+        const tax4 =
+            bracket4 * 0.45;
+
 
         tax += tax4;
+
 
         lines.push(
             `${money(bracket4)} × 45% = ${money(tax4)}`
@@ -1792,12 +2269,14 @@ function calculateTax202526(income) {
 
 
     let bracket;
+
     let marginalRate;
 
 
     if (income <= 45000) {
 
         bracket = "$18,201 – $45,000";
+
         marginalRate = 16;
 
     }
@@ -1805,6 +2284,7 @@ function calculateTax202526(income) {
     else if (income <= 135000) {
 
         bracket = "$45,001 – $135,000";
+
         marginalRate = 30;
 
     }
@@ -1812,6 +2292,7 @@ function calculateTax202526(income) {
     else if (income <= 190000) {
 
         bracket = "$135,001 – $190,000";
+
         marginalRate = 37;
 
     }
@@ -1819,30 +2300,48 @@ function calculateTax202526(income) {
     else {
 
         bracket = "$190,001+";
+
         marginalRate = 45;
 
     }
 
 
     return {
-        tax,
-        bracket,
-        marginalRate,
-        lines
+
+        tax: tax,
+
+        bracket: bracket,
+
+        marginalRate: marginalRate,
+
+        lines: lines
+
     };
 
 }
 
 
-function calculateIncomeTax(income, year) {
+/* =====================================================
+   TAX SELECTOR
+===================================================== */
+
+function calculateIncomeTax(
+    income,
+    year
+) {
 
     if (year === "2025-26") {
 
-        return calculateTax202526(income);
+        return calculateTax202526(
+            income
+        );
 
     }
 
-    return calculateTax202627(income);
+
+    return calculateTax202627(
+        income
+    );
 
 }
 
@@ -1854,8 +2353,11 @@ function calculateIncomeTax(income, year) {
 function calculateMedicare(income) {
 
     if (income <= 0) {
+
         return 0;
+
     }
+
 
     return income * 0.02;
 
@@ -1863,7 +2365,7 @@ function calculateMedicare(income) {
 
 
 /* =====================================================
-   MLS
+   MEDICARE LEVY SURCHARGE
 ===================================================== */
 
 function calculateMLS(
@@ -1874,9 +2376,14 @@ function calculateMLS(
     if (privateHospital === "yes") {
 
         return {
+
             amount: 0,
+
             rate: 0,
-            tier: "No surcharge — private hospital cover"
+
+            tier:
+                "No surcharge — private hospital cover"
+
         };
 
     }
@@ -1885,9 +2392,13 @@ function calculateMLS(
     if (income <= 97000) {
 
         return {
+
             amount: 0,
+
             rate: 0,
+
             tier: "Base tier"
+
         };
 
     }
@@ -1896,9 +2407,13 @@ function calculateMLS(
     if (income <= 113000) {
 
         return {
+
             amount: income * 0.01,
+
             rate: 1,
+
             tier: "Tier 1"
+
         };
 
     }
@@ -1907,25 +2422,33 @@ function calculateMLS(
     if (income <= 151000) {
 
         return {
+
             amount: income * 0.0125,
+
             rate: 1.25,
+
             tier: "Tier 2"
+
         };
 
     }
 
 
     return {
+
         amount: income * 0.015,
+
         rate: 1.5,
+
         tier: "Tier 3"
+
     };
 
 }
 
 
 /* =====================================================
-   HELP
+   HELP CALCULATOR
 ===================================================== */
 
 function calculateHELP(
@@ -1940,14 +2463,24 @@ function calculateHELP(
     ) {
 
         return {
+
             repayment: 0,
+
             bracket: "No HELP repayment",
+
             rate: 0,
-            calculation: "No HELP repayment applies."
+
+            calculation:
+                "No HELP repayment applies."
+
         };
 
     }
 
+
+    /* =================================================
+       2025–26
+    ================================================= */
 
     if (year === "2025-26") {
 
@@ -1955,11 +2488,17 @@ function calculateHELP(
         if (income <= 67000) {
 
             return {
+
                 repayment: 0,
-                bracket: "$0 – $67,000",
+
+                bracket:
+                    "$0 – $67,000",
+
                 rate: 0,
+
                 calculation:
                     `${money(income)} is at or below the $67,000 minimum threshold.`
+
             };
 
         }
@@ -1967,16 +2506,26 @@ function calculateHELP(
 
         if (income <= 125000) {
 
+            const amountAbove =
+                income - 67000;
+
+
             const repayment =
-                (income - 67000) * 0.15;
+                amountAbove * 0.15;
 
 
             return {
-                repayment,
-                bracket: "$67,001 – $125,000",
+
+                repayment: repayment,
+
+                bracket:
+                    "$67,001 – $125,000",
+
                 rate: 15,
+
                 calculation:
                     `(${money(income)} − ${money(67000)}) × 15% = ${money(repayment)}`
+
             };
 
         }
@@ -1990,11 +2539,17 @@ function calculateHELP(
 
 
             return {
-                repayment,
-                bracket: "$125,001 – $179,285",
+
+                repayment: repayment,
+
+                bracket:
+                    "$125,001 – $179,285",
+
                 rate: 17,
+
                 calculation:
                     `$8,700 + (${money(income)} − $125,000) × 17% = ${money(repayment)}`
+
             };
 
         }
@@ -2005,24 +2560,41 @@ function calculateHELP(
 
 
         return {
-            repayment,
-            bracket: "$179,286+",
+
+            repayment: repayment,
+
+            bracket:
+                "$179,286+",
+
             rate: 10,
+
             calculation:
                 `${money(income)} × 10% = ${money(repayment)}`
+
         };
 
     }
 
 
+    /* =================================================
+       2026–27
+    ================================================= */
+
+
     if (income <= 69528) {
 
         return {
+
             repayment: 0,
-            bracket: "$0 – $69,528",
+
+            bracket:
+                "$0 – $69,528",
+
             rate: 0,
+
             calculation:
                 `${money(income)} is at or below the $69,528 minimum threshold.`
+
         };
 
     }
@@ -2030,16 +2602,26 @@ function calculateHELP(
 
     if (income <= 129717) {
 
+        const amountAbove =
+            income - 69528;
+
+
         const repayment =
-            (income - 69528) * 0.15;
+            amountAbove * 0.15;
 
 
         return {
-            repayment,
-            bracket: "$69,529 – $129,717",
+
+            repayment: repayment,
+
+            bracket:
+                "$69,529 – $129,717",
+
             rate: 15,
+
             calculation:
                 `(${money(income)} − ${money(69528)}) × 15% = ${money(repayment)}`
+
         };
 
     }
@@ -2053,11 +2635,17 @@ function calculateHELP(
 
 
         return {
-            repayment,
-            bracket: "$129,718 – $186,050",
+
+            repayment: repayment,
+
+            bracket:
+                "$129,718 – $186,050",
+
             rate: 17,
+
             calculation:
                 `$9,028.35 + (${money(income)} − $129,717) × 17% = ${money(repayment)}`
+
         };
 
     }
@@ -2068,11 +2656,17 @@ function calculateHELP(
 
 
     return {
-        repayment,
-        bracket: "$186,051+",
+
+        repayment: repayment,
+
+        bracket:
+            "$186,051+",
+
         rate: 10,
+
         calculation:
             `${money(income)} × 10% = ${money(repayment)}`
+
     };
 
 }
@@ -2091,7 +2685,9 @@ function addExpense(
     const row =
         document.createElement("div");
 
-    row.className = "expense-row";
+
+    row.className =
+        "expense-row";
 
 
     row.innerHTML = `
@@ -2114,7 +2710,9 @@ function addExpense(
         >
 
 
-        <select onchange="calculateAll()">
+        <select
+            onchange="calculateAll()"
+        >
 
             <option
                 value="weekly"
@@ -2224,7 +2822,7 @@ function calculateExpenses() {
 
 
 /* =====================================================
-   ALLOCATION
+   DISCRETIONARY ALLOCATION
 ===================================================== */
 
 function addAllocation(
@@ -2235,6 +2833,7 @@ function addAllocation(
 
     const row =
         document.createElement("div");
+
 
     row.className =
         "allocation-row";
@@ -2250,7 +2849,9 @@ function addAllocation(
         >
 
 
-        <select onchange="calculateAll()">
+        <select
+            onchange="calculateAll()"
+        >
 
             <option
                 value="percentage"
@@ -2279,25 +2880,19 @@ function addAllocation(
         >
 
 
-        <span
-            class="allocation-output allocation-weekly"
-        >
+        <div class="allocation-weekly">
             $0.00
-        </span>
+        </div>
 
 
-        <span
-            class="allocation-output allocation-monthly"
-        >
+        <div class="allocation-monthly">
             $0.00
-        </span>
+        </div>
 
 
-        <span
-            class="allocation-output allocation-annual"
-        >
+        <div class="allocation-annual">
             $0.00
-        </span>
+        </div>
 
 
         <button
@@ -2323,11 +2918,455 @@ function addAllocation(
 }
 
 
+/* =====================================================
+   PIE CHART
+===================================================== */
+
+let allocationChart = null;
+
+
+function updateAllocationChart() {
+
+    const canvas =
+        document.getElementById(
+            "allocationChart"
+        );
+
+
+    if (!canvas) {
+
+        return;
+
+    }
+
+
+    /*
+       Get gross annual income.
+    */
+
+    const totalIncome =
+        calculateIncome();
+
+
+    /*
+       Government deductions.
+    */
+
+    const tax =
+        parseCurrency(
+            document
+                .getElementById("incomeTax")
+                .textContent
+        );
+
+
+    const medicare =
+        parseCurrency(
+            document
+                .getElementById("medicareLevy")
+                .textContent
+        );
+
+
+    const mls =
+        parseCurrency(
+            document
+                .getElementById("medicareSurcharge")
+                .textContent
+        );
+
+
+    const help =
+        parseCurrency(
+            document
+                .getElementById("helpRepayment")
+                .textContent
+        );
+
+
+    const government =
+        tax +
+        medicare +
+        mls +
+        help;
+
+
+    /*
+       Living expenses.
+    */
+
+    const livingExpenses =
+        calculateExpenses();
+
+
+    /*
+       Discretionary allocations.
+    */
+
+    const availableWeekly =
+        Math.max(
+            0,
+            (
+                parseCurrency(
+                    document
+                        .getElementById(
+                            "afterTaxWeekly"
+                        )
+                        .textContent
+                )
+            ) -
+            (
+                livingExpenses / 52
+            )
+        );
+
+
+    let allocationValues = [];
+
+    let allocationLabels = [];
+
+
+    document
+        .querySelectorAll(".allocation-row")
+        .forEach(row => {
+
+            const inputs =
+                row.querySelectorAll("input");
+
+
+            const name =
+                inputs[0].value.trim();
+
+
+            const mode =
+                row.querySelector("select").value;
+
+
+            const value =
+                Number(inputs[1].value) || 0;
+
+
+            let weekly = 0;
+
+
+            if (mode === "percentage") {
+
+                weekly =
+                    availableWeekly *
+                    value /
+                    100;
+
+            }
+
+            else {
+
+                weekly = value;
+
+            }
+
+
+            if (weekly > 0) {
+
+                allocationLabels.push(
+                    name || "Unnamed allocation"
+                );
+
+
+                allocationValues.push(
+                    weekly * 52
+                );
+
+            }
+
+        });
+
+
+    /*
+       Unallocated money.
+    */
+
+    const allocatedAnnual =
+        allocationValues.reduce(
+            (sum, value) =>
+                sum + value,
+            0
+        );
+
+
+    const afterTaxAnnual =
+        Math.max(
+            0,
+            totalIncome -
+            government
+        );
+
+
+    const availableAnnual =
+        Math.max(
+            0,
+            afterTaxAnnual -
+            livingExpenses
+        );
+
+
+    const unallocatedAnnual =
+        Math.max(
+            0,
+            availableAnnual -
+            allocatedAnnual
+        );
+
+
+    /*
+       If there is no income, display
+       an empty chart rather than creating
+       misleading categories.
+    */
+
+    if (totalIncome <= 0) {
+
+        if (allocationChart) {
+
+            allocationChart.destroy();
+
+            allocationChart = null;
+
+        }
+
+        return;
+
+    }
+
+
+    const labels = [];
+
+    const values = [];
+
+    const colours = [];
+
+
+    if (government > 0) {
+
+        labels.push(
+            "Tax & Government"
+        );
+
+        values.push(
+            government
+        );
+
+        colours.push(
+            "#7c83b8"
+        );
+
+    }
+
+
+    if (livingExpenses > 0) {
+
+        labels.push(
+            "Living Expenses"
+        );
+
+        values.push(
+            livingExpenses
+        );
+
+        colours.push(
+            "#79a8a9"
+        );
+
+    }
+
+
+    allocationLabels.forEach(
+        (label, index) => {
+
+            labels.push(label);
+
+            values.push(
+                allocationValues[index]
+            );
+
+            /*
+               Soft alternating
+               aquarium / galaxy colours.
+            */
+
+            const palette = [
+
+                "#8ea7d8",
+                "#a99bc9",
+                "#d6bd7c",
+                "#8fb89b",
+                "#91b7c7",
+                "#9f8fbd",
+                "#b8a56f",
+                "#7fa99f"
+
+            ];
+
+            colours.push(
+                palette[
+                    index %
+                    palette.length
+                ]
+            );
+
+        }
+    );
+
+
+    if (unallocatedAnnual > 0) {
+
+        labels.push(
+            "Unallocated"
+        );
+
+        values.push(
+            unallocatedAnnual
+        );
+
+        colours.push(
+            "#c4cad6"
+        );
+
+    }
+
+
+    if (allocationChart) {
+
+        allocationChart.destroy();
+
+    }
+
+
+    allocationChart =
+        new Chart(
+            canvas,
+            {
+
+                type: "doughnut",
+
+                data: {
+
+                    labels: labels,
+
+                    datasets: [
+
+                        {
+
+                            data: values,
+
+                            backgroundColor:
+                                colours,
+
+                            borderColor:
+                                "#ffffff",
+
+                            borderWidth: 2
+
+                        }
+
+                    ]
+
+                },
+
+                options: {
+
+                    responsive: true,
+
+                    maintainAspectRatio: false,
+
+                    plugins: {
+
+                        legend: {
+
+                            position: "bottom",
+
+                            labels: {
+
+                                padding: 16
+
+                            }
+
+                        },
+
+                        tooltip: {
+
+                            callbacks: {
+
+                                label:
+                                    function(context) {
+
+                                        const value =
+                                            context.raw || 0;
+
+
+                                        const percentage =
+                                            totalIncome > 0
+                                                ? value /
+                                                  totalIncome *
+                                                  100
+                                                : 0;
+
+
+                                        return (
+                                            " " +
+                                            money(value) +
+                                            " (" +
+                                            percentage.toFixed(1) +
+                                            "%)"
+                                        );
+
+                                    }
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+        );
+
+}
+
+
+/* =====================================================
+   PARSE CURRENCY
+===================================================== */
+
+function parseCurrency(value) {
+
+    if (!value) {
+
+        return 0;
+
+    }
+
+
+    return Number(
+        String(value)
+            .replace(/\$/g, "")
+            .replace(/,/g, "")
+            .trim()
+    ) || 0;
+
+}
+
+
+/* =====================================================
+   ALLOCATION CALCULATIONS
+===================================================== */
+
 function calculateAllocations(
     availableWeekly
 ) {
 
-    let totalWeekly = 0;
+    let total = 0;
 
 
     document
@@ -2373,47 +3412,107 @@ function calculateAllocations(
                 weekly * 52;
 
 
-            totalWeekly += weekly;
+            total += weekly;
 
 
-            row.querySelector(".allocation-weekly")
-                .textContent =
-                    money(weekly);
+            row.querySelector(
+                ".allocation-weekly"
+            ).textContent =
+                money(weekly);
 
 
-            row.querySelector(".allocation-monthly")
-                .textContent =
-                    money(monthly);
+            row.querySelector(
+                ".allocation-monthly"
+            ).textContent =
+                money(monthly);
 
 
-            row.querySelector(".allocation-annual")
-                .textContent =
-                    money(annual);
+            row.querySelector(
+                ".allocation-annual"
+            ).textContent =
+                money(annual);
 
         });
 
 
     const remaining =
-        availableWeekly - totalWeekly;
+        availableWeekly -
+        total;
+
+
+    const totalMonthly =
+        total * 52 / 12;
+
+
+    const totalAnnual =
+        total * 52;
+
+
+    const remainingMonthly =
+        remaining * 52 / 12;
+
+
+    const remainingAnnual =
+        remaining * 52;
 
 
     document
-        .getElementById("allocationTotal")
+        .getElementById(
+            "allocationTotalWeekly"
+        )
         .textContent =
-            money(totalWeekly) +
+            money(total) +
             " / week";
 
 
     document
-        .getElementById("allocationRemaining")
+        .getElementById(
+            "allocationTotalMonthly"
+        )
+        .textContent =
+            money(totalMonthly) +
+            " / month";
+
+
+    document
+        .getElementById(
+            "allocationTotalAnnual"
+        )
+        .textContent =
+            money(totalAnnual) +
+            " / year";
+
+
+    document
+        .getElementById(
+            "allocationRemainingWeekly"
+        )
         .textContent =
             money(remaining) +
             " / week";
 
 
+    document
+        .getElementById(
+            "allocationRemainingMonthly"
+        )
+        .textContent =
+            money(remainingMonthly) +
+            " / month";
+
+
+    document
+        .getElementById(
+            "allocationRemainingAnnual"
+        )
+        .textContent =
+            money(remainingAnnual) +
+            " / year";
+
+
     const element =
         document.getElementById(
-            "allocationRemaining"
+            "allocationRemainingWeekly"
         );
 
 
@@ -2425,338 +3524,22 @@ function calculateAllocations(
 
     if (remaining < -0.01) {
 
-        element.classList.add("danger");
+        element.classList.add(
+            "danger"
+        );
 
     }
 
     else {
 
-        element.classList.add("success");
+        element.classList.add(
+            "success"
+        );
 
     }
 
 
-    return {
-        totalWeekly,
-        remaining
-    };
-
-}
-
-
-/* =====================================================
-   PIE CHART
-===================================================== */
-
-function drawPieChart(
-    totalIncome,
-    totalGovernment,
-    livingExpensesAnnual,
-    allocations
-) {
-
-    const canvas =
-        document.getElementById(
-            "financePieChart"
-        );
-
-
-    const ctx =
-        canvas.getContext("2d");
-
-
-    ctx.clearRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-    );
-
-
-    /*
-       Soft aquarium / galaxy palette.
-       Intentionally muted rather than saturated.
-    */
-
-    const colours = [
-
-        "#7897B2", // muted blue
-        "#9A8FB8", // muted purple
-        "#D8B86A", // muted gold
-        "#7FA58A", // muted green
-        "#8BA8C2", // blue
-        "#B09CC4", // purple
-        "#C9B46A", // yellow
-        "#91B09A"  // green
-
-    ];
-
-
-    const data = [];
-
-
-    if (totalGovernment > 0) {
-
-        data.push({
-            name: "Tax & Government Repayments",
-            value: totalGovernment
-        });
-
-    }
-
-
-    if (livingExpensesAnnual > 0) {
-
-        data.push({
-            name: "Living Expenses",
-            value: livingExpensesAnnual
-        });
-
-    }
-
-
-    allocations.forEach(item => {
-
-        if (item.annual > 0) {
-
-            data.push({
-                name: item.name || "Discretionary",
-                value: item.annual
-            });
-
-        }
-
-    });
-
-
-    const allocatedAnnual =
-        data.reduce(
-            (sum, item) => sum + item.value,
-            0
-        );
-
-
-    const unallocated =
-        Math.max(
-            0,
-            totalIncome - allocatedAnnual
-        );
-
-
-    if (unallocated > 0) {
-
-        data.push({
-            name: "Unallocated / Remaining",
-            value: unallocated
-        });
-
-    }
-
-
-    if (data.length === 0 || totalIncome <= 0) {
-
-        ctx.beginPath();
-
-        ctx.arc(
-            200,
-            200,
-            150,
-            0,
-            Math.PI * 2
-        );
-
-        ctx.fillStyle = "#e5e7eb";
-
-        ctx.fill();
-
-        ctx.fillStyle = "#6b7280";
-
-        ctx.font = "16px -apple-system, BlinkMacSystemFont, sans-serif";
-
-        ctx.textAlign = "center";
-
-        ctx.fillText(
-            "Enter income to see chart",
-            200,
-            205
-        );
-
-        document
-            .getElementById("chartLegend")
-            .innerHTML = "";
-
-        return;
-
-    }
-
-
-    const total =
-        data.reduce(
-            (sum, item) => sum + item.value,
-            0
-        );
-
-
-    let startAngle =
-        -Math.PI / 2;
-
-
-    data.forEach((item, index) => {
-
-        const slice =
-            (item.value / total) *
-            Math.PI * 2;
-
-
-        const endAngle =
-            startAngle + slice;
-
-
-        ctx.beginPath();
-
-        ctx.moveTo(200, 200);
-
-        ctx.arc(
-            200,
-            200,
-            150,
-            startAngle,
-            endAngle
-        );
-
-        ctx.closePath();
-
-
-        ctx.fillStyle =
-            colours[index % colours.length];
-
-
-        ctx.fill();
-
-
-        ctx.strokeStyle =
-            "#ffffff";
-
-        ctx.lineWidth = 2;
-
-        ctx.stroke();
-
-
-        startAngle = endAngle;
-
-    });
-
-
-    /*
-       Create a subtle doughnut centre.
-       This makes the chart feel cleaner than
-       a completely solid pie.
-    */
-
-    ctx.beginPath();
-
-    ctx.arc(
-        200,
-        200,
-        68,
-        0,
-        Math.PI * 2
-    );
-
-    ctx.fillStyle = "#ffffff";
-
-    ctx.fill();
-
-
-    ctx.fillStyle = "#374151";
-
-    ctx.font =
-        "bold 17px -apple-system, BlinkMacSystemFont, sans-serif";
-
-    ctx.textAlign = "center";
-
-    ctx.fillText(
-        "Annual",
-        200,
-        195
-    );
-
-
-    ctx.font =
-        "13px -apple-system, BlinkMacSystemFont, sans-serif";
-
-    ctx.fillStyle =
-        "#6b7280";
-
-    ctx.fillText(
-        money(totalIncome),
-        200,
-        217
-    );
-
-
-    /*
-       Legend
-    */
-
-    const legend =
-        document.getElementById(
-            "chartLegend"
-        );
-
-
-    legend.innerHTML = "";
-
-
-    data.forEach((item, index) => {
-
-        const percentage =
-            item.value /
-            total *
-            100;
-
-
-        const div =
-            document.createElement("div");
-
-
-        div.className =
-            "legend-item";
-
-
-        div.innerHTML = `
-
-            <div class="legend-left">
-
-                <span
-                    class="legend-colour"
-                    style="
-                        background:
-                        ${colours[index % colours.length]};
-                    "
-                ></span>
-
-                <span class="legend-name">
-                    ${item.name}
-                </span>
-
-            </div>
-
-
-            <span class="legend-value">
-
-                ${money(item.value)}
-                ·
-                ${percentage.toFixed(1)}%
-
-            </span>
-
-        `;
-
-
-        legend.appendChild(div);
-
-    });
+    updateAllocationChart();
 
 }
 
@@ -2777,13 +3560,17 @@ function calculateAll() {
 
 
     document
-        .getElementById("taxTotalIncome")
+        .getElementById(
+            "taxTotalIncome"
+        )
         .textContent =
             money(totalIncome);
 
 
     document
-        .getElementById("taxableIncome")
+        .getElementById(
+            "taxableIncome"
+        )
         .textContent =
             money(totalIncome);
 
@@ -2794,12 +3581,14 @@ function calculateAll() {
 
     const year =
         document
-            .getElementById("taxYear")
+            .getElementById(
+                "taxYear"
+            )
             .value;
 
 
     /* -----------------------------------------------
-       TAX
+       INCOME TAX
     ------------------------------------------------ */
 
     const taxResult =
@@ -2810,43 +3599,62 @@ function calculateAll() {
 
 
     document
-        .getElementById("incomeTax")
+        .getElementById(
+            "incomeTax"
+        )
         .textContent =
             money(taxResult.tax);
 
 
     document
-        .getElementById("taxBracket")
+        .getElementById(
+            "taxBracket"
+        )
         .textContent =
             taxResult.bracket;
 
 
     document
-        .getElementById("taxRate")
+        .getElementById(
+            "taxRate"
+        )
         .textContent =
-            taxResult.marginalRate + "%";
+            taxResult.marginalRate +
+            "%";
 
+
+    /* -----------------------------------------------
+       TRANSPARENT TAX CALCULATION
+    ------------------------------------------------ */
 
     document
-        .getElementById("taxCalculation1")
+        .getElementById(
+            "taxCalculation1"
+        )
         .innerHTML =
             `<strong>Taxable income:</strong> ${money(totalIncome)}`;
 
 
     document
-        .getElementById("taxCalculation2")
+        .getElementById(
+            "taxCalculation2"
+        )
         .innerHTML =
             taxResult.lines[0] || "";
 
 
     document
-        .getElementById("taxCalculation3")
+        .getElementById(
+            "taxCalculation3"
+        )
         .innerHTML =
             taxResult.lines[1] || "";
 
 
     document
-        .getElementById("taxCalculation4")
+        .getElementById(
+            "taxCalculation4"
+        )
         .innerHTML =
             taxResult.lines
                 .slice(2)
@@ -2854,7 +3662,9 @@ function calculateAll() {
 
 
     document
-        .getElementById("taxCalculationResult")
+        .getElementById(
+            "taxCalculationResult"
+        )
         .textContent =
             "Estimated income tax: " +
             money(taxResult.tax);
@@ -2871,13 +3681,17 @@ function calculateAll() {
 
 
     document
-        .getElementById("medicareLevy")
+        .getElementById(
+            "medicareLevy"
+        )
         .textContent =
             money(medicare);
 
 
     document
-        .getElementById("medicareRate")
+        .getElementById(
+            "medicareRate"
+        )
         .textContent =
             totalIncome > 0
                 ? "2%"
@@ -2890,7 +3704,9 @@ function calculateAll() {
 
     const hospital =
         document
-            .getElementById("privateHospital")
+            .getElementById(
+                "privateHospital"
+            )
             .value;
 
 
@@ -2902,21 +3718,28 @@ function calculateAll() {
 
 
     document
-        .getElementById("medicareSurcharge")
+        .getElementById(
+            "medicareSurcharge"
+        )
         .textContent =
             money(mls.amount);
 
 
     document
-        .getElementById("mlsTier")
+        .getElementById(
+            "mlsTier"
+        )
         .textContent =
             mls.tier;
 
 
     document
-        .getElementById("mlsRate")
+        .getElementById(
+            "mlsRate"
+        )
         .textContent =
-            mls.rate + "%";
+            mls.rate +
+            "%";
 
 
     /* -----------------------------------------------
@@ -2925,7 +3748,9 @@ function calculateAll() {
 
     const hasHELP =
         document
-            .getElementById("hasHELP")
+            .getElementById(
+                "hasHELP"
+            )
             .value;
 
 
@@ -2938,25 +3763,34 @@ function calculateAll() {
 
 
     document
-        .getElementById("helpRepayment")
+        .getElementById(
+            "helpRepayment"
+        )
         .textContent =
             money(help.repayment);
 
 
     document
-        .getElementById("helpBracket")
+        .getElementById(
+            "helpBracket"
+        )
         .textContent =
             help.bracket;
 
 
     document
-        .getElementById("helpRate")
+        .getElementById(
+            "helpRate"
+        )
         .textContent =
-            help.rate + "%";
+            help.rate +
+            "%";
 
 
     document
-        .getElementById("helpIncome")
+        .getElementById(
+            "helpIncome"
+        )
         .textContent =
             money(totalIncome);
 
@@ -2970,38 +3804,48 @@ function calculateAll() {
 
 
     document
-        .getElementById("helpEffectiveRate")
+        .getElementById(
+            "helpEffectiveRate"
+        )
         .textContent =
             pct(effectiveHELP);
 
 
     document
-        .getElementById("helpCalculation1")
+        .getElementById(
+            "helpCalculation1"
+        )
         .innerHTML =
             `<strong>Repayment income:</strong> ${money(totalIncome)}`;
 
 
     document
-        .getElementById("helpCalculation2")
+        .getElementById(
+            "helpCalculation2"
+        )
         .innerHTML =
             `<strong>Bracket:</strong> ${help.bracket} → ${help.rate}% marginal rate`;
 
 
     document
-        .getElementById("helpCalculation3")
+        .getElementById(
+            "helpCalculation3"
+        )
         .innerHTML =
             `<strong>Calculation:</strong> ${help.calculation}`;
 
 
     document
-        .getElementById("helpCalculationResult")
+        .getElementById(
+            "helpCalculationResult"
+        )
         .textContent =
             "Estimated HELP repayment: " +
             money(help.repayment);
 
 
     /* -----------------------------------------------
-       GOVERNMENT TOTAL
+       TOTAL GOVERNMENT
     ------------------------------------------------ */
 
     const totalGovernment =
@@ -3012,7 +3856,9 @@ function calculateAll() {
 
 
     document
-        .getElementById("totalGovernment")
+        .getElementById(
+            "totalGovernment"
+        )
         .textContent =
             money(totalGovernment);
 
@@ -3029,45 +3875,53 @@ function calculateAll() {
         );
 
 
-    const afterTaxMonthly =
+    const monthly =
         afterTax / 12;
 
 
-    const afterTaxWeekly =
+    const weekly =
         afterTax / 52;
 
 
-    const afterTaxHourly =
+    const hourly =
         afterTax /
         (52 * 38);
 
 
     document
-        .getElementById("afterTaxAnnual")
+        .getElementById(
+            "afterTaxAnnual"
+        )
         .textContent =
             money(afterTax);
 
 
     document
-        .getElementById("afterTaxMonthly")
+        .getElementById(
+            "afterTaxMonthly"
+        )
         .textContent =
-            money(afterTaxMonthly);
+            money(monthly);
 
 
     document
-        .getElementById("afterTaxWeekly")
+        .getElementById(
+            "afterTaxWeekly"
+        )
         .textContent =
-            money(afterTaxWeekly);
+            money(weekly);
 
 
     document
-        .getElementById("afterTaxHourly")
+        .getElementById(
+            "afterTaxHourly"
+        )
         .textContent =
-            money(afterTaxHourly);
+            money(hourly);
 
 
     /* -----------------------------------------------
-       LIVING EXPENSES
+       EXPENSES
     ------------------------------------------------ */
 
     const expenseAnnual =
@@ -3083,25 +3937,31 @@ function calculateAll() {
 
 
     document
-        .getElementById("expenseAnnual")
+        .getElementById(
+            "expenseAnnual"
+        )
         .textContent =
             money(expenseAnnual);
 
 
     document
-        .getElementById("expenseMonthly")
+        .getElementById(
+            "expenseMonthly"
+        )
         .textContent =
             money(expenseMonthly);
 
 
     document
-        .getElementById("expenseWeekly")
+        .getElementById(
+            "expenseWeekly"
+        )
         .textContent =
             money(expenseWeekly);
 
 
     /* -----------------------------------------------
-       MONEY AVAILABLE
+       AVAILABLE MONEY
     ------------------------------------------------ */
 
     const availableAnnual =
@@ -3118,19 +3978,25 @@ function calculateAll() {
 
 
     document
-        .getElementById("availableAnnual")
+        .getElementById(
+            "availableAnnual"
+        )
         .textContent =
             money(availableAnnual);
 
 
     document
-        .getElementById("availableMonthly")
+        .getElementById(
+            "availableMonthly"
+        )
         .textContent =
             money(availableMonthly);
 
 
     document
-        .getElementById("availableWeekly")
+        .getElementById(
+            "availableWeekly"
+        )
         .textContent =
             money(availableWeekly);
 
@@ -3178,96 +4044,14 @@ function calculateAll() {
 
 
     /* -----------------------------------------------
-       ALLOCATIONS
+       ALLOCATION
     ------------------------------------------------ */
 
-    const allocationResult =
-        calculateAllocations(
-            Math.max(
-                0,
-                availableWeekly
-            )
-        );
-
-
-    /*
-       Gather allocation data for chart.
-    */
-
-    const allocationData = [];
-
-
-    document
-        .querySelectorAll(".allocation-row")
-        .forEach(row => {
-
-            const inputs =
-                row.querySelectorAll("input");
-
-
-            const name =
-                inputs[0].value.trim();
-
-
-            const mode =
-                row.querySelector("select").value;
-
-
-            const value =
-                Number(inputs[1].value) || 0;
-
-
-            let weekly = 0;
-
-
-            if (mode === "percentage") {
-
-                weekly =
-                    Math.max(
-                        0,
-                        availableWeekly
-                    ) *
-                    value /
-                    100;
-
-            }
-
-            else {
-
-                weekly = value;
-
-            }
-
-
-            allocationData.push({
-
-                name:
-                    name || "Discretionary",
-
-                weekly:
-
-                    weekly,
-
-                monthly:
-                    weekly * 52 / 12,
-
-                annual:
-                    weekly * 52
-
-            });
-
-        });
-
-
-    /* -----------------------------------------------
-       PIE CHART
-    ------------------------------------------------ */
-
-    drawPieChart(
-        totalIncome,
-        totalGovernment,
-        expenseAnnual,
-        allocationData
+    calculateAllocations(
+        Math.max(
+            0,
+            availableWeekly
+        )
     );
 
 }
@@ -3283,13 +4067,13 @@ window.onload = function() {
        Deliberately empty.
 
        No personal income,
-       employers,
-       salary,
+       employer names,
+       salaries,
        rent,
        expenses,
-       savings
-       or other financial information
-       is preloaded.
+       savings or
+       other financial information
+       is stored.
     */
 
 
@@ -3316,5 +4100,7 @@ window.onload = function() {
 
 </script>
 
+
 </body>
+
 </html>
